@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Fighter Rank Compose</string>
+    <string name="title">Fighter Rank</string>
+    <string name="app_icon_description">Fighter Rank Icon</string>
 </resources>

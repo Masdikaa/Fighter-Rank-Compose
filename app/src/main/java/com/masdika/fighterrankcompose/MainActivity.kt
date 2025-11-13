@@ -1,6 +1,7 @@
 package com.masdika.fighterrankcompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.masdika.fighterrankcompose.ui.components.TopAppBarHome
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +21,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FighterRankComposeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    topBar = {
+                        TopAppBarHome({ Log.i("TopAppBarHome", "onShowPopUpMenu") })
+                    },
+                    modifier = Modifier.fillMaxSize()
+                ) { innerPadding ->
                     Greeting(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
