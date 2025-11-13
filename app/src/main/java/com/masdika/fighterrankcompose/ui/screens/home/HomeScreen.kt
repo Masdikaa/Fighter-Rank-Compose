@@ -5,9 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.screens.home.components.FighterList
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
@@ -15,6 +18,9 @@ import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
+    val fighters = remember { loadFighters(context) }
+
     Column(
         modifier = modifier
             .padding(
@@ -25,7 +31,7 @@ fun HomeScreen(
             )
             .background(MaterialTheme.colorScheme.surface)
     ) {
-        FighterList()
+        FighterList(fighters)
     }
 }
 

@@ -2,16 +2,22 @@ package com.masdika.fighterrankcompose.ui.screens.home.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
 @Composable
-fun FighterList(modifier: Modifier = Modifier) {
+fun FighterList(
+    fighters: List<Fighter>,
+    modifier: Modifier = Modifier
+) {
     val fighterListState = rememberLazyListState()
 
     LazyColumn(
@@ -19,12 +25,16 @@ fun FighterList(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
-        items(50) {
+        items(
+            items = fighters,
+            key = { it.name }
+        ) { fighter ->
             FighterCard(
-                fighterImage = "",
-                fighterName = "Fighter Name",
-                fighterDivision = "Fighter Division",
-                fighterDescription = "Fighter Description"
+                fighterImage = fighter.image,
+                fighterName = fighter.name,
+                fighterDivision = fighter.division,
+                fighterDescription = fighter.description,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
@@ -34,7 +44,24 @@ fun FighterList(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 private fun FighterListPreview() {
+    val fighterList = listOf(
+        Fighter(
+            image = "",
+            name = "Masdika Ilhan Mansiz",
+            division = "Lightweight",
+            description = "Description",
+            wins = 54,
+            loses = 0,
+            draws = 0,
+            strikeAccuracy = 89,
+            takedownAccuracy = 87,
+            knockOutWins = 49,
+            submissionWins = 3,
+            title = "\"El Macho\""
+        ),
+    )
+
     FighterRankComposeTheme {
-        FighterList()
+        FighterList(fighterList)
     }
 }

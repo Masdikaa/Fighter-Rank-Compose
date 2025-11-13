@@ -1,6 +1,235 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Fighter Rank Compose</string>
     <string name="title">Fighter Rank</string>
     <string name="app_icon_description">Fighter Rank Icon</string>
     <string name="fighter_image">fighter image</string>
+
+    <!--DATA-->
+    <string-array name="fighter_names">
+        <item>Masdika Ilhan Mansiz</item>
+        <item>Ilia Topuria</item>
+        <item>Islam Makhachev</item>
+        <item>Merab Dvalishvili</item>
+        <item>Khamzat Chimaev</item>
+        <item>Alexandre Pantoja</item>
+        <item>Alex Pereira</item>
+        <item>Alexander Volkanovski</item>
+        <item>Jack Della Maddalena</item>
+        <item>Tom Aspinall</item>
+        <item>Dricus Du Plessis</item>
+        <item>Max Holloway</item>
+        <item>Magomed Ankalaev</item>
+        <item>Belal Muhammad</item>
+        <item>Arman Tsarukyan</item>
+        <item>Charles Oliveira</item>
+    </string-array>
+
+    <string-array name="fighter_divisions">
+        <item>Lightweight</item>
+        <item>Lightweight</item>
+        <item>Welterweight</item>
+        <item>Bantamweight</item>
+        <item>Middleweight</item>
+        <item>Flyweight</item>
+        <item>Light Heavyweight</item>
+        <item>Featherweight</item>
+        <item>Welterweight</item>
+        <item>Heavyweight</item>
+        <item>Middleweight</item>
+        <item>Lightweight</item>
+        <item>Light Heavyweight</item>
+        <item>Welterweight</item>
+        <item>Lightweight</item>
+        <item>Lightweight</item>
+    </string-array>
+
+    <string-array name="fighter_titles">
+        <item>\"El Macho\"</item>
+        <item>\"El Matador\"</item>
+        <item>\"\"</item>
+        <item>\"The Machine\"</item>
+        <item>\"Borz\"</item>
+        <item>\"The Cannibal\"</item>
+        <item>\"Poatan\"</item>
+        <item>\"The Great\"</item>
+        <item>\"\"</item>
+        <item>\"\"</item>
+        <item>\"Stillknocks\"</item>
+        <item>\"Blessed\"</item>
+        <item>\"\"</item>
+        <item>\"Remember The Name\"</item>
+        <item>\"Ahalkalakets\"</item>
+        <item>\"Do Bronxs\"</item>
+    </string-array>
+
+    <string-array name="fighter_images" tools:ignore="TypographyDashes">
+        <item>https://i.postimg.cc/h4zmMmj0/Untitled-design-11.png</item>
+        <item>https://www.ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/TOPURIA_ILIA_L_BELT_10-26.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-11/MAKHACHEV_ISLAM_L_10-22.png?</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/DVALISHVILI_MERAB_L_BELT_10-04.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-08/CHIMAEV_KHAMZAT_L_BELTMOCK.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-06/PANTOJA_ALEXANDRE_L_BELT_06-28.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-03/PEREIRA_ALEX_L_BELT_03-08.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-02/VOLKANOVSKI_ALEXANDER_L_BELT_02-17.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-05/DELLA_MADDALENA_JACK_L_BELTMOCK.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/ASPINALL_TOM_L_BELT_10-25.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-08/DU_PLESSIS_DRICUS_L_01-20.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-07/HOLLOWAY_MAX_L_BMF_BELT_07-19.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-10/ANKALAEV_MAGOMED_L_10-26.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2023-05/MUHAMMAD_BELAL_L_05-06.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-01/TSARUKYAN_ARMAN_L_01-18.png</item>
+        <item>https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/OLIVEIRA_CHARLES_L_10-11.png</item>
+    </string-array>
+
+    <string-array name="fighter_descriptions">
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+        <item>Description</item>
+    </string-array>
+
+    <integer-array name="fighter_wins">
+        <item>54</item>
+        <item>17</item>
+        <item>27</item>
+        <item>21</item>
+        <item>15</item>
+        <item>30</item>
+        <item>13</item>
+        <item>27</item>
+        <item>18</item>
+        <item>15</item>
+        <item>23</item>
+        <item>27</item>
+        <item>21</item>
+        <item>24</item>
+        <item>22</item>
+        <item>36</item>
+    </integer-array>
+
+    <integer-array name="fighter_loses">
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>4</item>
+        <item>0</item>
+        <item>5</item>
+        <item>3</item>
+        <item>4</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3</item>
+        <item>8</item>
+        <item>2</item>
+        <item>4</item>
+        <item>3</item>
+        <item>11</item>
+    </integer-array>
+
+    <integer-array name="fighter_draws">
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+
+    <integer-array name="fighter_strike_accuracy">
+        <item>89</item>
+        <item>48</item>
+        <item>59</item>
+        <item>42</item>
+        <item>61</item>
+        <item>50</item>
+        <item>62</item>
+        <item>57</item>
+        <item>53</item>
+        <item>68</item>
+        <item>49</item>
+        <item>48</item>
+        <item>53</item>
+        <item>43</item>
+        <item>49</item>
+        <item>55</item>
+    </integer-array>
+
+    <integer-array name="fighter_takedown_accuracy">
+        <item>87</item>
+        <item>61</item>
+        <item>54</item>
+        <item>38</item>
+        <item>55</item>
+        <item>48</item>
+        <item>50</item>
+        <item>34</item>
+        <item>11</item>
+        <item>80</item>
+        <item>51</item>
+        <item>53</item>
+        <item>2</item>
+        <item>39</item>
+        <item>37</item>
+        <item>40</item>
+    </integer-array>
+
+    <integer-array name="fighter_ko_wins">
+        <item>49</item>
+        <item>7</item>
+        <item>5</item>
+        <item>3</item>
+        <item>6</item>
+        <item>8</item>
+        <item>11</item>
+        <item>13</item>
+        <item>12</item>
+        <item>12</item>
+        <item>8</item>
+        <item>12</item>
+        <item>11</item>
+        <item>5</item>
+        <item>9</item>
+        <item>10</item>
+    </integer-array>
+
+    <integer-array name="fighter_sub_wins">
+        <item>3</item>
+        <item>8</item>
+        <item>13</item>
+        <item>2</item>
+        <item>6</item>
+        <item>12</item>
+        <item>0</item>
+        <item>3</item>
+        <item>2</item>
+        <item>3</item>
+        <item>11</item>
+        <item>2</item>
+        <item>0</item>
+        <item>1</item>
+        <item>5</item>
+        <item>22</item>
+    </integer-array>
 </resources>

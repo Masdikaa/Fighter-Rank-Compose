@@ -61,6 +61,7 @@ fun FighterCard(
             modifier = Modifier
                 .width(90.dp)
                 .fillMaxHeight()
+                .padding(top = 5.dp)
         )
 
         Column(

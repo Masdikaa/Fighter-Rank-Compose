@@ -56,4 +56,5 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(libs.coil.compose) // COIL COMPOSE
+    implementation(libs.coil.network.okhttp) // COIL NETWORK
 }
