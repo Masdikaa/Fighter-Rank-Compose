@@ -1,6 +1,5 @@
 package com.masdika.fighterrankcompose.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -13,13 +12,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +30,7 @@ import com.masdika.fighterrankcompose.ui.theme.Sternbach
 
 @Composable
 fun TopAppBarHome(
-    onShowPopUpMenu: () -> Unit,
+    onFighterIconClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -44,8 +43,8 @@ fun TopAppBarHome(
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Companion.CenterVertically,
-            modifier = Modifier.Companion
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
                 .padding(horizontal = 10.dp)
@@ -54,19 +53,21 @@ fun TopAppBarHome(
                 text = stringResource(R.string.title),
                 fontFamily = Sternbach,
                 color = MainRed,
-                fontSize = 30.sp
+                fontSize = 30.sp,
+                letterSpacing = 0.2.sp
             )
 
-            Image(
-                painter = painterResource(R.drawable.profile_fighter_icon),
+            Icon(
+                imageVector = FighterIcon,
                 contentDescription = stringResource(R.string.app_icon_description),
-                modifier = Modifier.Companion
-                    .width(50.dp)
-                    .height(35.dp)
+                tint = MainRed,
+                modifier = Modifier
+                    .width(40.dp)
+                    .height(40.dp)
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,
-                        onClick = onShowPopUpMenu
+                        onClick = onFighterIconClick
                     )
             )
         }

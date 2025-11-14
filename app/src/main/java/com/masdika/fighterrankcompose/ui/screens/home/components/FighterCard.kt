@@ -47,7 +47,7 @@ fun FighterCard(
             .background(MaterialTheme.colorScheme.background)
             .clip(RoundedCornerShape(8.dp))
             .border(
-                width = 1.2.dp,
+                width = 1.dp,
                 color = MainRed,
                 shape = RoundedCornerShape(8.dp)
             )

@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             FighterRankComposeTheme {
                 Scaffold(
                     topBar = {
-                        TopAppBarHome({ Log.i("TopAppBarHome", "onShowPopUpMenu") })
+                        TopAppBarHome({ Log.i("TopAppBarHome", "onFighterIconClick") })
                     },
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
