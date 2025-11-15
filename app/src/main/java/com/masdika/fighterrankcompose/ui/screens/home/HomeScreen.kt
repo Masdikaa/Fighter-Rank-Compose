@@ -1,6 +1,7 @@
 package com.masdika.fighterrankcompose.ui.screens.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -21,7 +22,7 @@ fun HomeScreen(
     val context = LocalContext.current
     val fighters = remember { loadFighters(context) }
 
-    Column(
+    Box(
         modifier = modifier
             .padding(
                 start = 8.dp,

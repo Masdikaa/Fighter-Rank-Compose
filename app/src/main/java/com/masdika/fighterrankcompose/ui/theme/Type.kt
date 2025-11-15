@@ -10,6 +10,7 @@ import com.masdika.fighterrankcompose.R
 
 val Sternbach = FontFamily(Font(resId = R.font.sternbach, weight = FontWeight.Normal))
 val MavenPro = FontFamily(Font(resId = R.font.maven_pro, weight = FontWeight.Normal))
+val BebasNeue = FontFamily(Font(resId = R.font.bebas, weight = FontWeight.Normal))
 
 val Typography = Typography(
     bodyLarge = TextStyle(
