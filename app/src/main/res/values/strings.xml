@@ -50,17 +50,17 @@
     <string-array name="fighter_titles">
         <item>\"El Macho\"</item>
         <item>\"El Matador\"</item>
-        <item>\"\"</item>
+        <item></item>
         <item>\"The Machine\"</item>
         <item>\"Borz\"</item>
         <item>\"The Cannibal\"</item>
         <item>\"Poatan\"</item>
         <item>\"The Great\"</item>
-        <item>\"\"</item>
-        <item>\"\"</item>
+        <item></item>
+        <item></item>
         <item>\"Stillknocks\"</item>
         <item>\"Blessed\"</item>
-        <item>\"\"</item>
+        <item></item>
         <item>\"Remember The Name\"</item>
         <item>\"Ahalkalakets\"</item>
         <item>\"Do Bronxs\"</item>
