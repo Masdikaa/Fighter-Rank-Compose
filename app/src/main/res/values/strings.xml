@@ -4,8 +4,8 @@
     <string name="app_icon_description">Fighter Rank Icon</string>
     <string name="fighter_image">fighter image</string>
     <string name="fighter_record">Fighter Record (W-D-L)</string>
-    <string name="wins_by_knockout">Wins By \nKnockout</string>
-    <string name="wins_by_submission">Wins By \nSubmission</string>
+    <string name="wins_by_knockout">Wins By\nKnockout</string>
+    <string name="wins_by_submission">Wins By\nSubmission</string>
     <string name="division">division</string>
 
     <!--DATA-->

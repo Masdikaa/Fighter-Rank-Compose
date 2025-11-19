@@ -1,8 +1,11 @@
 package com.masdika.fighterrankcompose.ui.screens.detail
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,10 +23,14 @@ fun DetailScreen(
     modifier: Modifier = Modifier
 ) {
     ConstraintLayout(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
     ) {
         val horizontalGuideline = createGuidelineFromTop(0.32f)
-        val (fighterOverview, horizontalDivider) = createRefs()
+        val (
+            fighterOverview,
+            horizontalDivider,
+            fighterDescriptionLayout
+        ) = createRefs()
 
         FighterOverview(
             fighterImage = fighter.image,
@@ -48,22 +55,43 @@ fun DetailScreen(
         HorizontalDivider(
             modifier = Modifier
                 .constrainAs(horizontalDivider) {
-                    top.linkTo(horizontalGuideline)
-                    start.linkTo(parent.start)
-                    end.linkTo(parent.end)
+                    top.linkTo(anchor = fighterOverview.bottom)
+                    start.linkTo(anchor = parent.start)
+                    end.linkTo(anchor = parent.end)
                     width = Dimension.fillToConstraints
                     height = Dimension.value(5.dp)
                 }
                 .background(MainRed)
         )
+
+        Box(
+            modifier = Modifier
+                .constrainAs(fighterDescriptionLayout) {
+                    top.linkTo(anchor = horizontalDivider.bottom)
+                    start.linkTo(anchor = parent.start)
+                    end.linkTo(anchor = parent.end)
+                    bottom.linkTo(anchor = parent.bottom)
+                    width = Dimension.fillToConstraints
+                    height = Dimension.fillToConstraints
+                }
+                .background(MaterialTheme.colorScheme.background)
+        )
     }
 }
 
 @Preview(
-    name = "Detail Screen",
+    name = "Detail Screen Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO,
+)
+@Preview(
+    name = "Detail Screen Dark Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
 private fun DetailScreenPreview() {

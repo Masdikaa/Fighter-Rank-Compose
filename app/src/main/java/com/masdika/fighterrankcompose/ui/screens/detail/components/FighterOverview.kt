@@ -2,6 +2,7 @@ package com.masdika.fighterrankcompose.ui.screens.detail.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -56,17 +58,36 @@ fun FighterOverview(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 10.dp, top = 10.dp, end = 10.dp)
-            .background(Color.Gray.copy(alpha = 0.3f))
+            .background(MaterialTheme.colorScheme.background)
     ) {
+
+        val fighterImageModifier = if (isSystemInDarkTheme()) {
+            modifier
+                .height(250.dp)
+                .width(165.dp)
+                .shadow(
+                    elevation = 100.dp,
+                    clip = true,
+                    spotColor = Color.Blue
+                )
+        } else {
+            modifier
+                .height(250.dp)
+                .width(165.dp)
+                .shadow(
+                    elevation = 100.dp,
+                    clip = true,
+                    spotColor = MainRed.copy(alpha = 0.8f)
+                )
+        }
+
         AsyncImage(
             model = fighterImage,
             contentDescription = fighterName + stringResource(R.string.fighter_image),
             placeholder = painterResource(R.drawable.ic_launcher_background),
             error = painterResource(R.drawable.ic_launcher_background),
             contentScale = ContentScale.Fit,
-            modifier = Modifier
-                .height(250.dp)
-                .width(165.dp)
+            modifier = fighterImageModifier
         )
 
         Spacer(Modifier.width(10.dp))
@@ -77,12 +98,11 @@ fun FighterOverview(
             modifier = Modifier
                 .height(250.dp)
                 .fillMaxWidth()
-                .background(Color.Gray.copy(alpha = 0.3f))
         ) {
             Text(
                 text = fighterName.uppercase(),
                 fontFamily = BebasNeue,
-                fontSize = 22.sp,
+                fontSize = 26.sp,
                 textAlign = TextAlign.Start,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
@@ -90,49 +110,21 @@ fun FighterOverview(
                 fontWeight = FontWeight.Bold,
             )
 
-            if (fighterTitle.length != 0) {
+            if (fighterTitle.isNotEmpty()) {
                 Text(
                     text = fighterTitle.uppercase(),
                     fontFamily = MavenPro,
-                    fontSize = 14.sp,
+                    fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Start,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     color = MaterialTheme.colorScheme.onBackground,
-                    style = TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = true
-                        ),
-                        lineHeightStyle = LineHeightStyle(
-                            trim = LineHeightStyle.Trim.Both,
-                            alignment = LineHeightStyle.Alignment.Top,
-                        )
-                    )
                 )
             }
 
             Text(
-                text = (fighterDivision + stringResource(R.string.division)).uppercase(),
-                fontFamily = BebasNeue,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Start,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = MaterialTheme.colorScheme.onBackground,
-                style = TextStyle(
-                    platformStyle = PlatformTextStyle(
-                        includeFontPadding = true
-                    ),
-                    lineHeightStyle = LineHeightStyle(
-                        trim = LineHeightStyle.Trim.Both,
-                        alignment = LineHeightStyle.Alignment.Top,
-                    )
-                )
-            )
-
-            Text(
-                text = ("$fighterWins-$fighterDraws-$fighterLoses (W-D-L)"),
+                text = (fighterDivision + " " + stringResource(R.string.division)).uppercase(),
                 fontFamily = BebasNeue,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Start,
@@ -142,8 +134,25 @@ fun FighterOverview(
                 style = TextStyle(
                     platformStyle = PlatformTextStyle(
                         includeFontPadding = true
-                    ),
-                    lineHeightStyle = LineHeightStyle(
+                    ), lineHeightStyle = LineHeightStyle(
+                        trim = LineHeightStyle.Trim.Both,
+                        alignment = LineHeightStyle.Alignment.Top,
+                    )
+                )
+            )
+
+            Text(
+                text = ("$fighterWins-$fighterDraws-$fighterLoses (W-D-L)"),
+                fontFamily = BebasNeue,
+                fontSize = 22.sp,
+                textAlign = TextAlign.Start,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = TextStyle(
+                    platformStyle = PlatformTextStyle(
+                        includeFontPadding = true
+                    ), lineHeightStyle = LineHeightStyle(
                         trim = LineHeightStyle.Trim.Both,
                         alignment = LineHeightStyle.Alignment.Top,
                     )
@@ -153,9 +162,7 @@ fun FighterOverview(
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Gray.copy(alpha = 0.3f))
+                modifier = Modifier.fillMaxSize()
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -168,8 +175,7 @@ fun FighterOverview(
                         style = TextStyle(
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = true
-                            ),
-                            lineHeightStyle = LineHeightStyle(
+                            ), lineHeightStyle = LineHeightStyle(
                                 trim = LineHeightStyle.Trim.Both,
                                 alignment = LineHeightStyle.Alignment.Top,
                             )
@@ -177,9 +183,7 @@ fun FighterOverview(
                     )
 
                     HorizontalDivider(
-                        modifier = Modifier.width(70.dp),
-                        thickness = 3.dp,
-                        color = MainRed
+                        modifier = Modifier.width(70.dp), thickness = 3.dp, color = MainRed
                     )
 
                     Spacer(Modifier.height(10.dp))
@@ -195,8 +199,7 @@ fun FighterOverview(
                         style = TextStyle(
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = true
-                            ),
-                            lineHeightStyle = LineHeightStyle(
+                            ), lineHeightStyle = LineHeightStyle(
                                 trim = LineHeightStyle.Trim.Both,
                                 alignment = LineHeightStyle.Alignment.Top,
                             )
@@ -217,8 +220,7 @@ fun FighterOverview(
                         style = TextStyle(
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = true
-                            ),
-                            lineHeightStyle = LineHeightStyle(
+                            ), lineHeightStyle = LineHeightStyle(
                                 trim = LineHeightStyle.Trim.Both,
                                 alignment = LineHeightStyle.Alignment.Top,
                             )
@@ -226,9 +228,7 @@ fun FighterOverview(
                     )
 
                     HorizontalDivider(
-                        modifier = Modifier.width(70.dp),
-                        thickness = 3.dp,
-                        color = MainRed
+                        modifier = Modifier.width(70.dp), thickness = 3.dp, color = MainRed
                     )
 
                     Spacer(Modifier.height(10.dp))
@@ -244,8 +244,7 @@ fun FighterOverview(
                         style = TextStyle(
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = true
-                            ),
-                            lineHeightStyle = LineHeightStyle(
+                            ), lineHeightStyle = LineHeightStyle(
                                 trim = LineHeightStyle.Trim.Both,
                                 alignment = LineHeightStyle.Alignment.Top,
                             )

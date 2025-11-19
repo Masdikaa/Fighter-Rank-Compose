@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
                         takedownAccuracy = 99,
                         knockOutWins = 99,
                         submissionWins = 99,
-                        title = "\"Jagoan\""
+                        title = ""
                     )
                     DetailScreen(
                         fighter = fighterData,
