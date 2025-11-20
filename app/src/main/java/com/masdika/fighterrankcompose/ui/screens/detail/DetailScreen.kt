@@ -2,7 +2,6 @@ package com.masdika.fighterrankcompose.ui.screens.detail
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -13,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
@@ -20,10 +20,13 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 @Composable
 fun DetailScreen(
     fighter: Fighter,
+    onShareButtonClick_Detail: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     ConstraintLayout(
-        modifier = modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
     ) {
         val horizontalGuideline = createGuidelineFromTop(0.32f)
         val (
@@ -49,7 +52,7 @@ fun DetailScreen(
                 bottom.linkTo(anchor = horizontalGuideline)
                 width = Dimension.fillToConstraints
                 height = Dimension.fillToConstraints
-            },
+            }
         )
 
         HorizontalDivider(
@@ -64,7 +67,10 @@ fun DetailScreen(
                 .background(MainRed)
         )
 
-        Box(
+        FighterDescription(
+            fighterName = fighter.name,
+            fighterDescription = fighter.description,
+            onShareButtonClick = onShareButtonClick_Detail,
             modifier = Modifier
                 .constrainAs(fighterDescriptionLayout) {
                     top.linkTo(anchor = horizontalDivider.bottom)
@@ -84,14 +90,14 @@ fun DetailScreen(
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
-    uiMode = Configuration.UI_MODE_NIGHT_NO,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
     name = "Detail Screen Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
 private fun DetailScreenPreview() {
@@ -104,13 +110,13 @@ private fun DetailScreenPreview() {
             wins = 54,
             loses = 0,
             draws = 0,
-            strikeAccuracy = 89,
-            takedownAccuracy = 87,
+            strikeAccuracy = 89.0,
+            takedownAccuracy = 87.0,
             knockOutWins = 49,
             submissionWins = 3,
             title = "\"El Macho\""
         )
 
-        DetailScreen(fighter)
+        DetailScreen(fighter, {})
     }
 }

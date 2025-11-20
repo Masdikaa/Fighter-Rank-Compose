@@ -7,6 +7,8 @@
     <string name="wins_by_knockout">Wins By\nKnockout</string>
     <string name="wins_by_submission">Wins By\nSubmission</string>
     <string name="division">division</string>
+    <string name="striking_accuracy">Striking Accuracy</string>
+    <string name="takedown_accuracy">Takedown Accuracy</string>
 
     <!--DATA-->
     <string-array name="fighter_names">

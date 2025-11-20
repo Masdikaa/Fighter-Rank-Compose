@@ -30,8 +30,8 @@ fun loadFighters(context: Context): List<Fighter> {
             wins = wins[i],
             loses = loses[i],
             draws = draws[i],
-            strikeAccuracy = strikeAcc[i],
-            takedownAccuracy = tdAcc[i],
+            strikeAccuracy = strikeAcc[i].toDouble(),
+            takedownAccuracy = tdAcc[i].toDouble(),
             knockOutWins = koWins[i],
             submissionWins = subWins[i],
             title = titles[i]

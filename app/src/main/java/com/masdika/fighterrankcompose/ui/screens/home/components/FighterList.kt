@@ -53,8 +53,8 @@ private fun FighterListPreview() {
             wins = 54,
             loses = 0,
             draws = 0,
-            strikeAccuracy = 89,
-            takedownAccuracy = 87,
+            strikeAccuracy = 89.0,
+            takedownAccuracy = 87.0,
             knockOutWins = 49,
             submissionWins = 3,
             title = "\"El Macho\""

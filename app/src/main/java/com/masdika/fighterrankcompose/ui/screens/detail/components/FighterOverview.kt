@@ -107,7 +107,7 @@ fun FighterOverview(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Bold,
+                fontWeight = FontWeight.ExtraBold,
             )
 
             if (fighterTitle.isNotEmpty()) {
@@ -126,7 +126,7 @@ fun FighterOverview(
             Text(
                 text = (fighterDivision + " " + stringResource(R.string.division)).uppercase(),
                 fontFamily = BebasNeue,
-                fontSize = 18.sp,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -144,7 +144,7 @@ fun FighterOverview(
             Text(
                 text = ("$fighterWins-$fighterDraws-$fighterLoses (W-D-L)"),
                 fontFamily = BebasNeue,
-                fontSize = 22.sp,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Start,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -191,7 +191,7 @@ fun FighterOverview(
                     Text(
                         text = stringResource(R.string.wins_by_knockout).uppercase(),
                         fontFamily = BebasNeue,
-                        fontSize = 11.sp,
+                        fontSize = 15.sp,
                         textAlign = TextAlign.Center,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
@@ -231,12 +231,12 @@ fun FighterOverview(
                         modifier = Modifier.width(70.dp), thickness = 3.dp, color = MainRed
                     )
 
-                    Spacer(Modifier.height(10.dp))
+                    Spacer(Modifier.height(8.dp))
 
                     Text(
                         text = stringResource(R.string.wins_by_submission).uppercase(),
                         fontFamily = BebasNeue,
-                        fontSize = 11.sp,
+                        fontSize = 15.sp,
                         textAlign = TextAlign.Center,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
