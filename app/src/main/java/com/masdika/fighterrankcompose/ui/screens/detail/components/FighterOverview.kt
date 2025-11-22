@@ -1,16 +1,15 @@
 package com.masdika.fighterrankcompose.ui.screens.detail.components
 
 import android.content.res.Configuration
-import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -56,60 +55,53 @@ fun FighterOverview(
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.Start,
         modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 10.dp, top = 10.dp, end = 10.dp)
-            .background(MaterialTheme.colorScheme.background)
     ) {
-
-        val fighterImageModifier = if (isSystemInDarkTheme()) {
-            modifier
-                .height(250.dp)
-                .width(165.dp)
+        val fighterImageModifier: Modifier = if (isSystemInDarkTheme()) {
+            Modifier
+                .fillMaxHeight(0.95f)
+                .fillMaxWidth(0.42f)
                 .shadow(
                     elevation = 100.dp,
                     clip = true,
                     spotColor = Color.Blue
                 )
         } else {
-            modifier
-                .height(250.dp)
-                .width(165.dp)
+            Modifier
+                .fillMaxHeight(0.95f)
+                .fillMaxWidth(0.42f)
                 .shadow(
                     elevation = 100.dp,
                     clip = true,
                     spotColor = MainRed.copy(alpha = 0.8f)
                 )
         }
-
         AsyncImage(
             model = fighterImage,
             contentDescription = fighterName + stringResource(R.string.fighter_image),
-            placeholder = painterResource(R.drawable.ic_launcher_background),
-            error = painterResource(R.drawable.ic_launcher_background),
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            error = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.Fit,
+            alignment = Alignment.BottomCenter,
             modifier = fighterImageModifier
         )
-
         Spacer(Modifier.width(10.dp))
-
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
-                .height(250.dp)
                 .fillMaxWidth()
+                .fillMaxHeight(0.9f)
         ) {
             Text(
                 text = fighterName.uppercase(),
                 fontFamily = BebasNeue,
-                fontSize = 26.sp,
+                fontSize = 24.sp,
                 textAlign = TextAlign.Start,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.ExtraBold,
             )
-
             if (fighterTitle.isNotEmpty()) {
                 Text(
                     text = fighterTitle.uppercase(),
@@ -122,7 +114,6 @@ fun FighterOverview(
                     color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-
             Text(
                 text = (fighterDivision + " " + stringResource(R.string.division)).uppercase(),
                 fontFamily = BebasNeue,
@@ -140,9 +131,8 @@ fun FighterOverview(
                     )
                 )
             )
-
             Text(
-                text = ("$fighterWins-$fighterDraws-$fighterLoses (W-D-L)"),
+                text = ("${fighterWins}-${fighterDraws}-${fighterLoses} (W-D-L)"),
                 fontFamily = BebasNeue,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Start,
@@ -158,7 +148,6 @@ fun FighterOverview(
                     )
                 )
             )
-
             Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
@@ -181,13 +170,10 @@ fun FighterOverview(
                             )
                         )
                     )
-
                     HorizontalDivider(
                         modifier = Modifier.width(70.dp), thickness = 3.dp, color = MainRed
                     )
-
                     Spacer(Modifier.height(10.dp))
-
                     Text(
                         text = stringResource(R.string.wins_by_knockout).uppercase(),
                         fontFamily = BebasNeue,
@@ -206,9 +192,7 @@ fun FighterOverview(
                         )
                     )
                 }
-
                 Spacer(Modifier.width(20.dp))
-
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -226,13 +210,10 @@ fun FighterOverview(
                             )
                         )
                     )
-
                     HorizontalDivider(
                         modifier = Modifier.width(70.dp), thickness = 3.dp, color = MainRed
                     )
-
                     Spacer(Modifier.height(8.dp))
-
                     Text(
                         text = stringResource(R.string.wins_by_submission).uppercase(),
                         fontFamily = BebasNeue,
@@ -252,7 +233,6 @@ fun FighterOverview(
                     )
                 }
             }
-
         }
     }
 }

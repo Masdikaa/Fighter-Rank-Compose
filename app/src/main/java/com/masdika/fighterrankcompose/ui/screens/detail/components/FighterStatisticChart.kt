@@ -1,15 +1,14 @@
 package com.masdika.fighterrankcompose.ui.screens.detail.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +23,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,6 +38,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun FighterStatisticChart(
+    fighterName: String,
     fighterStrikeAccuracy: Double,
     fighterTakedownAccuracy: Double,
     modifier: Modifier = Modifier
@@ -83,110 +84,119 @@ fun FighterStatisticChart(
         )
     }
 
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround,
+    Column(
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center,
         modifier = modifier
-            .fillMaxWidth()
-            .wrapContentHeight()
-            .background(MaterialTheme.colorScheme.background)
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+        Text(
+            text = "$fighterName STATS",
+            fontFamily = BebasNeue,
+            color = MaterialTheme.colorScheme.onBackground,
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp,
+            modifier = Modifier.padding(start = 10.dp, bottom = 12.dp)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxSize()
         ) {
-            Box(
-                contentAlignment = Alignment.Center
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                PieChart(
-                    data = strikeAccuracyData,
-                    onPieClick = {
-                        val pieIndex = strikeAccuracyData.indexOf(it)
-                        strikeAccuracyData = strikeAccuracyData.mapIndexed { mapIndex, pie ->
-                            val isTargetPie = mapIndex == pieIndex
-                            val newSelectedState = if (isTargetPie) !it.selected else false
-                            pie.copy(selected = newSelectedState)
-                        }
-                    },
-                    spaceDegree = 3f,
-                    style = Pie.Style.Stroke(width = 30.dp),
-                    modifier = Modifier
-                        .size(150.dp)
-                        .rotate(-90f),
-                )
-
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    PieChart(
+                        data = strikeAccuracyData,
+                        onPieClick = {
+                            val pieIndex = strikeAccuracyData.indexOf(it)
+                            strikeAccuracyData = strikeAccuracyData.mapIndexed { mapIndex, pie ->
+                                val isTargetPie = mapIndex == pieIndex
+                                val newSelectedState = if (isTargetPie) !it.selected else false
+                                pie.copy(selected = newSelectedState)
+                            }
+                        },
+                        spaceDegree = 3f,
+                        style = Pie.Style.Stroke(width = 30.dp),
+                        modifier = Modifier
+                            .size(150.dp)
+                            .rotate(-90f),
+                    )
+                    Text(
+                        text = "${fighterStrikeAccuracy.roundToInt()}%",
+                        fontFamily = BebasNeue,
+                        fontSize = 18.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "${fighterStrikeAccuracy.roundToInt()}%",
+                    text = stringResource(R.string.striking_accuracy),
                     fontFamily = BebasNeue,
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
+                    style = TextStyle(
+                        platformStyle = PlatformTextStyle(
+                            includeFontPadding = true
+                        ),
+                        lineHeightStyle = LineHeightStyle(
+                            trim = LineHeightStyle.Trim.Both,
+                            alignment = LineHeightStyle.Alignment.Top,
+                        )
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-
-            Spacer(Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(R.string.striking_accuracy),
-                fontFamily = BebasNeue,
-                fontSize = 18.sp,
-                style = TextStyle(
-                    platformStyle = PlatformTextStyle(
-                        includeFontPadding = true
-                    ),
-                    lineHeightStyle = LineHeightStyle(
-                        trim = LineHeightStyle.Trim.Both,
-                        alignment = LineHeightStyle.Alignment.Top,
-                    )
-                ),
-            )
-        }
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Box(
-                contentAlignment = Alignment.Center
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                PieChart(
-                    data = takedownAccuracyData,
-                    onPieClick = {
-                        val pieIndex = takedownAccuracyData.indexOf(it)
-                        takedownAccuracyData = takedownAccuracyData.mapIndexed { mapIndex, pie ->
-                            val isTargetPie = mapIndex == pieIndex
-                            val newSelectedState = if (isTargetPie) !it.selected else false
-                            pie.copy(selected = newSelectedState)
-                        }
-                    },
-                    spaceDegree = 3f,
-                    style = Pie.Style.Stroke(width = 30.dp),
-                    modifier = Modifier
-                        .size(150.dp)
-                        .rotate(-90f),
-                )
-
+                Box(
+                    contentAlignment = Alignment.Center
+                ) {
+                    PieChart(
+                        data = takedownAccuracyData,
+                        onPieClick = {
+                            val pieIndex = takedownAccuracyData.indexOf(it)
+                            takedownAccuracyData =
+                                takedownAccuracyData.mapIndexed { mapIndex, pie ->
+                                    val isTargetPie = mapIndex == pieIndex
+                                    val newSelectedState = if (isTargetPie) !it.selected else false
+                                    pie.copy(selected = newSelectedState)
+                                }
+                        },
+                        spaceDegree = 3f,
+                        style = Pie.Style.Stroke(width = 30.dp),
+                        modifier = Modifier
+                            .size(150.dp)
+                            .rotate(-90f),
+                    )
+                    Text(
+                        text = "${fighterTakedownAccuracy.roundToInt()}%",
+                        fontFamily = BebasNeue,
+                        fontSize = 18.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                    )
+                }
+                Spacer(Modifier.height(8.dp))
                 Text(
-                    text = "${fighterTakedownAccuracy.roundToInt()}%",
+                    text = stringResource(R.string.takedown_accuracy),
                     fontFamily = BebasNeue,
-                    fontSize = 18.sp
+                    fontSize = 18.sp,
+                    style = TextStyle(
+                        platformStyle = PlatformTextStyle(
+                            includeFontPadding = true
+                        ),
+                        lineHeightStyle = LineHeightStyle(
+                            trim = LineHeightStyle.Trim.Both,
+                            alignment = LineHeightStyle.Alignment.Top,
+                        )
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
                 )
             }
-
-            Spacer(Modifier.height(8.dp))
-
-            Text(
-                text = stringResource(R.string.takedown_accuracy),
-                fontFamily = BebasNeue,
-                fontSize = 18.sp,
-                style = TextStyle(
-                    platformStyle = PlatformTextStyle(
-                        includeFontPadding = true
-                    ),
-                    lineHeightStyle = LineHeightStyle(
-                        trim = LineHeightStyle.Trim.Both,
-                        alignment = LineHeightStyle.Alignment.Top,
-                    )
-                ),
-            )
         }
     }
 }
@@ -196,6 +206,7 @@ fun FighterStatisticChart(
 private fun FighterStatisticChartPreview() {
     FighterRankComposeTheme {
         FighterStatisticChart(
+            fighterName = "Fighter Name",
             fighterStrikeAccuracy = 87.9,
             fighterTakedownAccuracy = 41.2,
         )

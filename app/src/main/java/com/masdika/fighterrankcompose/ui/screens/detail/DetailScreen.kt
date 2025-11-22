@@ -2,39 +2,41 @@ package com.masdika.fighterrankcompose.ui.screens.detail
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
+import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterStatisticChart
+import com.masdika.fighterrankcompose.ui.screens.detail.components.ShareButton
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 
 @Composable
 fun DetailScreen(
     fighter: Fighter,
-    onShareButtonClick_Detail: () -> Unit,
+    onShareButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    ConstraintLayout(
+    val scrollState = rememberScrollState()
+
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        val horizontalGuideline = createGuidelineFromTop(0.32f)
-        val (
-            fighterOverview,
-            horizontalDivider,
-            fighterDescriptionLayout
-        ) = createRefs()
-
         FighterOverview(
             fighterImage = fighter.image,
             fighterName = fighter.name,
@@ -45,43 +47,43 @@ fun DetailScreen(
             fighterLoses = fighter.loses,
             fighterWinByKnockout = fighter.knockOutWins,
             fighterWinBySubmission = fighter.submissionWins,
-            modifier = Modifier.constrainAs(fighterOverview) {
-                top.linkTo(anchor = parent.top)
-                start.linkTo(anchor = parent.start)
-                end.linkTo(anchor = parent.end)
-                bottom.linkTo(anchor = horizontalGuideline)
-                width = Dimension.fillToConstraints
-                height = Dimension.fillToConstraints
-            }
-        )
-
-        HorizontalDivider(
             modifier = Modifier
-                .constrainAs(horizontalDivider) {
-                    top.linkTo(anchor = fighterOverview.bottom)
-                    start.linkTo(anchor = parent.start)
-                    end.linkTo(anchor = parent.end)
-                    width = Dimension.fillToConstraints
-                    height = Dimension.value(5.dp)
-                }
-                .background(MainRed)
-        )
-
-        FighterDescription(
-            fighterName = fighter.name,
-            fighterDescription = fighter.description,
-            onShareButtonClick = onShareButtonClick_Detail,
-            modifier = Modifier
-                .constrainAs(fighterDescriptionLayout) {
-                    top.linkTo(anchor = horizontalDivider.bottom)
-                    start.linkTo(anchor = parent.start)
-                    end.linkTo(anchor = parent.end)
-                    bottom.linkTo(anchor = parent.bottom)
-                    width = Dimension.fillToConstraints
-                    height = Dimension.fillToConstraints
-                }
+                .fillMaxWidth()
+                .fillMaxHeight(0.32f)
                 .background(MaterialTheme.colorScheme.background)
+                .padding(start = 15.dp, end = 5.dp)
         )
+        HorizontalDivider(color = MainRed, thickness = 5.dp)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 10.dp)
+                .background(MaterialTheme.colorScheme.background)
+                .verticalScroll(scrollState)
+        ) {
+            FighterDescription(
+                fighterName = fighter.name,
+                fighterDescription = fighter.description,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .padding(horizontal = 10.dp, vertical = 10.dp)
+            )
+            FighterStatisticChart(
+                fighterName = fighter.name,
+                fighterStrikeAccuracy = fighter.strikeAccuracy,
+                fighterTakedownAccuracy = fighter.takedownAccuracy,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+            )
+            ShareButton(
+                onShareButtonClick = onShareButtonClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 10.dp)
+            )
+        }
     }
 }
 
@@ -104,7 +106,7 @@ private fun DetailScreenPreview() {
     FighterRankComposeTheme {
         val fighter = Fighter(
             image = "",
-            name = "Masdika Ilhan Mansiz",
+            name = "Alexander Volkanovski",
             division = "Lightweight",
             description = "Description",
             wins = 54,

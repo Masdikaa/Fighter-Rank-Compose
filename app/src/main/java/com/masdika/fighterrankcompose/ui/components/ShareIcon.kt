@@ -1,3 +1,5 @@
+package com.masdika.fighterrankcompose.ui.components
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -13,13 +15,13 @@ val ShareIcon: ImageVector
             return _ShareIcon!!
         }
         _ShareIcon = ImageVector.Builder(
-            name = "Share",
-            defaultWidth = 100.dp,
-            defaultHeight = 100.dp,
-            viewportWidth = 100f,
-            viewportHeight = 5f
+            name = "ShareIcon",
+            defaultWidth = 512.dp,
+            defaultHeight = 512.dp,
+            viewportWidth = 512f,
+            viewportHeight = 512.01f
         ).apply {
-            path(fill = SolidColor(Color.White)) {
+            path(fill = SolidColor(Color.Black)) {
                 moveTo(453.34f, 512f)
                 lineTo(58.67f, 512f)
                 curveToRelative(-32.36f, 0f, -58.66f, -26.31f, -58.66f, -58.66f)
@@ -42,7 +44,7 @@ val ShareIcon: ImageVector
                 close()
                 moveTo(453.34f, 512f)
             }
-            path(fill = SolidColor(Color.White)) {
+            path(fill = SolidColor(Color.Black)) {
                 moveTo(143.98f, 341.06f)
                 arcToRelative(
                     14.09f,

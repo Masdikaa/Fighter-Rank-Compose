@@ -32,23 +32,23 @@ class MainActivity : ComponentActivity() {
                                 "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
                     val fighterData = Fighter(
-                        image = "https://i.postimg.cc/h4zmMmj0/Untitled-design-11.png",
-                        name = "Fighter",
+                        image = "https://ufc.com/images/styles/athlete_bio_full_body/s3/2024-02/VOLKANOVSKI_ALEXANDER_L_BELT_02-17.png",
+                        name = "Alexander Volkanovski",
                         division = "Lightweight",
                         description = description,
                         wins = 99,
                         loses = 99,
                         draws = 99,
-                        strikeAccuracy = 99.0,
-                        takedownAccuracy = 99.0,
+                        strikeAccuracy = 50.0,
+                        takedownAccuracy = 50.0,
                         knockOutWins = 99,
                         submissionWins = 99,
-                        title = "\"El Macho\""
+                        title = "\"The Great\""
                     )
 
                     DetailScreen(
                         fighter = fighterData,
-                        onShareButtonClick_Detail = {
+                        onShareButtonClick = {
                             Log.i(
                                 "Detail Screen",
                                 "onShareButtonClick"
