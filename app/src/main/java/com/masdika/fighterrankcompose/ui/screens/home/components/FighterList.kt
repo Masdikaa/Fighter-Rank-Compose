@@ -8,9 +8,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
 @Composable
@@ -44,24 +46,9 @@ fun FighterList(
 @Preview
 @Composable
 private fun FighterListPreview() {
-    val fighterList = listOf(
-        Fighter(
-            image = "",
-            name = "Masdika Ilhan Mansiz",
-            division = "Lightweight",
-            description = "Description",
-            wins = 54,
-            loses = 0,
-            draws = 0,
-            strikeAccuracy = 89.0,
-            takedownAccuracy = 87.0,
-            knockOutWins = 49,
-            submissionWins = 3,
-            title = "\"El Macho\""
-        ),
-    )
-
+    val fighters = loadFighters(LocalContext.current)
+ 
     FighterRankComposeTheme {
-        FighterList(fighterList)
+        FighterList(fighters)
     }
 }

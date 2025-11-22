@@ -14,9 +14,11 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterStatisticChart
@@ -103,22 +105,23 @@ fun DetailScreen(
 )
 @Composable
 private fun DetailScreenPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val fighter = fighters.getOrNull(5)
     FighterRankComposeTheme {
         val fighter = Fighter(
-            image = "",
-            name = "Alexander Volkanovski",
-            division = "Lightweight",
-            description = "Description",
-            wins = 54,
-            loses = 0,
-            draws = 0,
-            strikeAccuracy = 89.0,
-            takedownAccuracy = 87.0,
-            knockOutWins = 49,
-            submissionWins = 3,
-            title = "\"El Macho\""
+            image = fighter!!.image,
+            name = fighter.name,
+            division = fighter.division,
+            description = fighter.division,
+            wins = fighter.wins,
+            loses = fighter.loses,
+            draws = fighter.draws,
+            strikeAccuracy = fighter.strikeAccuracy,
+            takedownAccuracy = fighter.takedownAccuracy,
+            knockOutWins = fighter.knockOutWins,
+            submissionWins = fighter.submissionWins,
+            title = fighter.title
         )
-
         DetailScreen(fighter, {})
     }
 }

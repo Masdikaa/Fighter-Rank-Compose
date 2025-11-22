@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -29,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
@@ -43,7 +45,6 @@ fun FighterStatisticChart(
     fighterTakedownAccuracy: Double,
     modifier: Modifier = Modifier
 ) {
-
     var strikeAccuracyData by remember {
         mutableStateOf(
             listOf(
@@ -53,7 +54,6 @@ fun FighterStatisticChart(
                     color = MainRed.copy(alpha = 0.8f),
                     selectedColor = MainRed
                 ),
-
                 Pie(
                     label = "Striking Accuracy",
                     data = 100 - fighterStrikeAccuracy,
@@ -73,7 +73,6 @@ fun FighterStatisticChart(
                     color = MainRed.copy(alpha = 0.8f),
                     selectedColor = MainRed
                 ),
-
                 Pie(
                     label = "Takedown Accuracy",
                     data = 100 - fighterTakedownAccuracy,
@@ -204,11 +203,13 @@ fun FighterStatisticChart(
 @Preview(showBackground = true)
 @Composable
 private fun FighterStatisticChartPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val fighter = fighters.getOrNull(5)
     FighterRankComposeTheme {
         FighterStatisticChart(
-            fighterName = "Fighter Name",
-            fighterStrikeAccuracy = 87.9,
-            fighterTakedownAccuracy = 41.2,
+            fighterName = fighter!!.name,
+            fighterStrikeAccuracy = fighter.strikeAccuracy,
+            fighterTakedownAccuracy = fighter.takedownAccuracy,
         )
     }
 }

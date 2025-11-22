@@ -34,7 +34,6 @@ fun TopAppBarHome(
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
-
     Column(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
@@ -56,7 +55,6 @@ fun TopAppBarHome(
                 fontSize = 30.sp,
                 letterSpacing = 0.2.sp
             )
-
             Icon(
                 imageVector = FighterIcon,
                 contentDescription = stringResource(R.string.app_icon_description),
@@ -71,7 +69,6 @@ fun TopAppBarHome(
                     )
             )
         }
-
         HorizontalDivider(
             color = MainRed,
             thickness = (2.5).dp

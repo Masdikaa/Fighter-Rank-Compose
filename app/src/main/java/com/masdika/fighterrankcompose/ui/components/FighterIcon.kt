@@ -208,7 +208,6 @@ val FighterIcon: ImageVector
                 }
             }
         }.build()
-
         return _FighterIcon!!
     }
 

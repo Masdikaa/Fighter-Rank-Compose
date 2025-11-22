@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 import com.masdika.fighterrankcompose.ui.theme.MavenPro
@@ -109,12 +111,14 @@ fun FighterCard(
 @Preview
 @Composable
 private fun FighterCardPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val fighter = fighters.getOrNull(1)
     FighterRankComposeTheme {
         FighterCard(
-            fighterImage = "",
-            fighterName = "Fighter Name",
-            fighterDivision = "Fighter Division",
-            fighterDescription = "Fighter Description"
+            fighterImage = fighter!!.image,
+            fighterName = fighter.name,
+            fighterDivision = fighter.division,
+            fighterDescription = fighter.description
         )
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
@@ -253,17 +255,19 @@ fun FighterOverview(
 )
 @Composable
 private fun FighterOverviewPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val fighter = fighters.getOrNull(5)
     FighterRankComposeTheme {
         FighterOverview(
-            fighterImage = "",
-            fighterName = "Fighter Name",
-            fighterTitle = "\"Jagoan\"",
-            fighterDivision = "Lightweight",
-            fighterWins = 99,
-            fighterDraws = 99,
-            fighterLoses = 99,
-            fighterWinByKnockout = 99,
-            fighterWinBySubmission = 99,
+            fighterImage = fighter!!.image,
+            fighterName = fighter.name,
+            fighterTitle = fighter.title,
+            fighterDivision = fighter.division,
+            fighterWins = fighter.wins,
+            fighterDraws = fighter.draws,
+            fighterLoses = fighter.loses,
+            fighterWinByKnockout = fighter.knockOutWins,
+            fighterWinBySubmission = fighter.submissionWins,
         )
     }
 }

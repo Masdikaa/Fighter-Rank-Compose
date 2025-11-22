@@ -110,6 +110,5 @@ val ShareIcon: ImageVector
                 moveTo(336f, 117.34f)
             }
         }.build()
-
         return _ShareIcon!!
     }

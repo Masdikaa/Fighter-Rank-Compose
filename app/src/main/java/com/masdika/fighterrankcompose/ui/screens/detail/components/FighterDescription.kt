@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
@@ -62,13 +64,12 @@ fun FighterDescription(
 @Preview(showBackground = true)
 @Composable
 private fun FighterDescriptionPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val fighter = fighters.getOrNull(5)
     FighterRankComposeTheme {
-        val description =
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-
         FighterDescription(
-            fighterName = "Fighter Name",
-            fighterDescription = description,
+            fighterName = fighter!!.name,
+            fighterDescription = fighter.description,
         )
     }
 }
