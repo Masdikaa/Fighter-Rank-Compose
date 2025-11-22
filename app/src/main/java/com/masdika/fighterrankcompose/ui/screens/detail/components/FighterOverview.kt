@@ -1,6 +1,7 @@
 package com.masdika.fighterrankcompose.ui.screens.detail.components
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -256,7 +257,7 @@ fun FighterOverview(
 @Composable
 private fun FighterOverviewPreview() {
     val fighters = loadFighters(LocalContext.current)
-    val fighter = fighters.getOrNull(5)
+    val fighter = fighters.getOrNull(8)
     FighterRankComposeTheme {
         FighterOverview(
             fighterImage = fighter!!.image,
@@ -268,6 +269,7 @@ private fun FighterOverviewPreview() {
             fighterLoses = fighter.loses,
             fighterWinByKnockout = fighter.knockOutWins,
             fighterWinBySubmission = fighter.submissionWins,
+            modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
     }
 }

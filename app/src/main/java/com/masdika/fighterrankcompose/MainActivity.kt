@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.data.source.loadFighters
+//import com.masdika.fighterrankcompose.ui.components.TopAppBarHome
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
+//import com.masdika.fighterrankcompose.ui.screens.home.HomeScreen
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
 //                    HomeScreen(modifier = Modifier.padding(innerPadding))
                     val fighters = loadFighters(LocalContext.current)
-                    val fighter = fighters.getOrNull(5)
+                    val fighter = fighters.getOrNull(1)
 
                     val description =
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." +

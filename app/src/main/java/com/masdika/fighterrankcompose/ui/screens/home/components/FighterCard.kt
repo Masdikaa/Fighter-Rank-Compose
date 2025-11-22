@@ -1,11 +1,14 @@
 package com.masdika.fighterrankcompose.ui.screens.home.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -44,32 +47,23 @@ fun FighterCard(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.Start,
         modifier = modifier
-            .height(135.dp)
-            .padding(top = 3.dp, start = 3.dp)
-            .background(MaterialTheme.colorScheme.background)
-            .clip(RoundedCornerShape(8.dp))
-            .border(
-                width = 1.dp,
-                color = MainRed,
-                shape = RoundedCornerShape(8.dp)
-            )
     ) {
         AsyncImage(
             model = fighterImage,
             contentDescription = fighterName + stringResource(R.string.fighter_image),
             contentScale = ContentScale.Fit,
+            alignment = Alignment.BottomCenter,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             error = painterResource(R.drawable.ic_launcher_foreground),
             modifier = Modifier
                 .width(90.dp)
                 .fillMaxHeight()
-                .padding(top = 5.dp)
+                .padding(top = 5.dp, start = 8.dp)
         )
 
         Column(
             modifier = Modifier
                 .padding(horizontal = 8.dp)
-                .background(MaterialTheme.colorScheme.surface)
                 .weight(1f)
                 .fillMaxHeight()
         ) {
@@ -108,17 +102,47 @@ fun FighterCard(
     }
 }
 
-@Preview
+@Preview(
+    name = "Fighter Card Preview Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Fighter Card Preview Dark Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 private fun FighterCardPreview() {
     val fighters = loadFighters(LocalContext.current)
     val fighter = fighters.getOrNull(1)
     FighterRankComposeTheme {
-        FighterCard(
-            fighterImage = fighter!!.image,
-            fighterName = fighter.name,
-            fighterDivision = fighter.division,
-            fighterDescription = fighter.description
-        )
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(10.dp)
+                .background(MaterialTheme.colorScheme.background)
+        ) {
+            FighterCard(
+                fighterImage = fighter!!.image,
+                fighterName = fighter.name,
+                fighterDivision = fighter.division,
+                fighterDescription = fighter.description,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(135.dp)
+                    .background(MaterialTheme.colorScheme.background)
+                    .clip(RoundedCornerShape(8.dp))
+                    .border(
+                        width = 1.dp,
+                        color = MainRed,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+            )
+        }
     }
 }

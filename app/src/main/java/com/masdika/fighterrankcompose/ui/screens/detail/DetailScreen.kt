@@ -106,7 +106,7 @@ fun DetailScreen(
 @Composable
 private fun DetailScreenPreview() {
     val fighters = loadFighters(LocalContext.current)
-    val fighter = fighters.getOrNull(5)
+    val fighter = fighters.getOrNull(1)
     FighterRankComposeTheme {
         val fighter = Fighter(
             image = fighter!!.image,
