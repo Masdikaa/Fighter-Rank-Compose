@@ -3,6 +3,7 @@ package com.masdika.fighterrankcompose.ui.screens.home
 import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,6 +28,7 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 
 @Composable
 fun HomeScreen(
+    onNavigateToDetail: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -64,6 +66,9 @@ fun HomeScreen(
                         color = MainRed,
                         shape = RoundedCornerShape(8.dp)
                     )
+                    .clickable(
+                        onClick = { onNavigateToDetail(fighter.name) }
+                    )
             )
         }
     }
@@ -86,6 +91,6 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenPreview() {
     FighterRankComposeTheme {
-        HomeScreen()
+        HomeScreen({})
     }
 }
