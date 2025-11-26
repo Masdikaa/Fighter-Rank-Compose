@@ -1,4 +1,4 @@
-package com.masdika.fighterrankcompose.ui.components
+package com.masdika.fighterrankcompose.ui.components.icons
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable

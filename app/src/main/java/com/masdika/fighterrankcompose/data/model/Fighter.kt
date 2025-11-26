@@ -6,7 +6,7 @@ data class Fighter(
     val division: String,
     val description: String,
     val wins: Int,
-    val loses: Int,
+    val losses: Int,
     val draws: Int,
     val strikeAccuracy: Double,
     val takedownAccuracy: Double,

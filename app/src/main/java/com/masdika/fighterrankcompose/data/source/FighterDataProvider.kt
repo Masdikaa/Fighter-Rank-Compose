@@ -13,7 +13,7 @@ fun loadFighters(context: Context): List<Fighter> {
     val images = r.getStringArray(R.array.fighter_images)
     val descriptions = r.getStringArray(R.array.fighter_descriptions)
     val wins = r.getIntArray(R.array.fighter_wins)
-    val loses = r.getIntArray(R.array.fighter_loses)
+    val losses = r.getIntArray(R.array.fighter_losses)
     val draws = r.getIntArray(R.array.fighter_draws)
     val strikeAcc = r.getIntArray(R.array.fighter_strike_accuracy)
     val tdAcc = r.getIntArray(R.array.fighter_takedown_accuracy)
@@ -28,7 +28,7 @@ fun loadFighters(context: Context): List<Fighter> {
             division = divisions[i],
             description = descriptions[i],
             wins = wins[i],
-            loses = loses[i],
+            losses = losses[i],
             draws = draws[i],
             strikeAccuracy = strikeAcc[i].toDouble(),
             takedownAccuracy = tdAcc[i].toDouble(),

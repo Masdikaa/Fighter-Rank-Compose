@@ -23,6 +23,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.LineHeightStyle
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
@@ -178,7 +180,7 @@ private fun DetailContentSuccessPreview() {
         image = "",
         description = "Conor Anthony McGregor is an Irish professional mixed martial artist. He is a former Ultimate Fighting Championship (UFC) featherweight and lightweight double-champion.",
         wins = 22,
-        loses = 6,
+        losses = 6,
         draws = 0,
         strikeAccuracy = 55.1,
         takedownAccuracy = 55.0,
@@ -237,7 +239,7 @@ private fun DetailContentLoadingPreview() {
 private fun DetailContentErrorPreview() {
     FighterRankComposeTheme {
         DetailContent(
-            uiState = DetailUIState.Error("Fighter not found!"),
+            uiState = DetailUIState.Error(stringResource(R.string.fighter_not_found)),
             onShareClick = {},
         )
     }

@@ -128,7 +128,7 @@ fun FighterOverview(
                 )
             )
             Text(
-                text = ("${fighter.wins}-${fighter.draws}-${fighter.loses} (W-D-L)"),
+                text = ("${fighter.wins}-${fighter.draws}-${fighter.losses} (W-D-L)"),
                 fontFamily = BebasNeue,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Start,

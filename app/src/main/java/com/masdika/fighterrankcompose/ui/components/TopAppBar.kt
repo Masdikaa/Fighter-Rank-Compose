@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.ui.components.icons.FighterIcon
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 import com.masdika.fighterrankcompose.ui.theme.Sternbach
