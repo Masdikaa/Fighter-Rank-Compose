@@ -64,4 +64,6 @@ dependencies {
     implementation(libs.compose.charts) // COMPOSE CHARTS
     implementation(libs.kotlinx.serialization.json) // COMPOSE SERIALIZATION
     implementation(libs.androidx.navigation.compose) // COMPOSE NAVIGATION
+    implementation(libs.androidx.lifecycle.viewmodel.compose) // COMPOSE VIEWMODEL
+    implementation(libs.androidx.lifecycle.runtime.compose) // COMPOSE RUNTIME
 }
