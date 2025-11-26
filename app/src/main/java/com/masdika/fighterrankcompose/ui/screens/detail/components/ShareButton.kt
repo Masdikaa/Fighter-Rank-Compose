@@ -24,11 +24,11 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 
 @Composable
 fun ShareButton(
-    onShareButtonClick: () -> Unit,
+    onShareClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Button(
-        onClick = onShareButtonClick,
+        onClick = onShareClick,
         shape = RoundedCornerShape(5.dp),
         colors = ButtonColors(
             containerColor = MainRed,

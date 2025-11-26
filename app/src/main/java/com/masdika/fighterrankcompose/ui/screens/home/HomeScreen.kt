@@ -1,6 +1,7 @@
 package com.masdika.fighterrankcompose.ui.screens.home
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -14,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -22,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masdika.fighterrankcompose.data.source.loadFighters
+import com.masdika.fighterrankcompose.ui.components.TopAppBar
 import com.masdika.fighterrankcompose.ui.screens.home.components.FighterCard
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
@@ -35,43 +38,57 @@ fun HomeScreen(
     val fighters = remember { loadFighters(context) }
     val fighterListState = rememberLazyListState()
 
-    LazyColumn(
-        state = fighterListState,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(
-                start = 8.dp,
-                end = 8.dp,
-                top = 5.dp,
-                bottom = 0.dp
-            ),
-        verticalArrangement = Arrangement.spacedBy(5.dp)
-    ) {
-        items(
-            items = fighters,
-            key = { it.name }
-        ) { fighter ->
-            FighterCard(
-                fighterImage = fighter.image,
-                fighterName = fighter.name,
-                fighterDivision = fighter.division,
-                fighterDescription = fighter.description,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(135.dp)
-                    .background(MaterialTheme.colorScheme.background)
-                    .clip(RoundedCornerShape(8.dp))
-                    .border(
-                        width = 1.dp,
-                        color = MainRed,
-                        shape = RoundedCornerShape(8.dp)
-                    )
-                    .clickable(
-                        onClick = { onNavigateToDetail(fighter.name) }
-                    )
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                onShowDropdownMenu = { onShowDropDownMenu() }
             )
+        },
+        modifier = modifier.fillMaxSize()
+    ) { innerPadding ->
+        LazyColumn(
+            state = fighterListState,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(
+                    start = 8.dp,
+                    end = 8.dp,
+                    top = 5.dp,
+                    bottom = 0.dp
+                ),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
+            items(
+                items = fighters,
+                key = { it.name }
+            ) { fighter ->
+                FighterCard(
+                    fighterImage = fighter.image,
+                    fighterName = fighter.name,
+                    fighterDivision = fighter.division,
+                    fighterDescription = fighter.description,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(135.dp)
+                        .background(MaterialTheme.colorScheme.background)
+                        .clip(RoundedCornerShape(8.dp))
+                        .border(
+                            width = 1.dp,
+                            color = MainRed,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .clickable(
+                            onClick = { onNavigateToDetail(fighter.name) }
+                        )
+                )
+            }
         }
     }
+}
+
+fun onShowDropDownMenu() {
+    Log.i("onShowDropDownMenu", "Clicked")
 }
 
 @Preview(

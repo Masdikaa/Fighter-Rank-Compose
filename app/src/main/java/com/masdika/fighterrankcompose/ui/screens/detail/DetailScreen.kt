@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -50,6 +51,7 @@ fun DetailScreen(
         verticalArrangement = Arrangement.Center,
         modifier = modifier
             .fillMaxSize()
+            .systemBarsPadding()
             .background(MaterialTheme.colorScheme.background)
     ) {
         if (fighter != null) {
@@ -94,9 +96,7 @@ fun DetailScreen(
                         .wrapContentHeight()
                 )
                 ShareButton(
-                    onShareButtonClick = {
-                        Log.i("Detail Screen", "onShareButtonClick")
-                    },
+                    onShareClick = { onShareClick() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 10.dp, vertical = 10.dp)
@@ -122,6 +122,10 @@ fun DetailScreen(
             )
         }
     }
+}
+
+fun onShareClick() {
+    Log.i("onShareClick", "Clicked")
 }
 
 @Preview(

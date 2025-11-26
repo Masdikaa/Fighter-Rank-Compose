@@ -33,8 +33,8 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 import com.masdika.fighterrankcompose.ui.theme.Sternbach
 
 @Composable
-fun TopAppBarHome(
-    onFighterIconClick: () -> Unit,
+fun TopAppBar(
+    onShowDropdownMenu: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -69,7 +69,7 @@ fun TopAppBarHome(
                     .clickable(
                         interactionSource = interactionSource,
                         indication = null,
-                        onClick = onFighterIconClick
+                        onClick = onShowDropdownMenu
                     )
             )
         }
@@ -98,7 +98,7 @@ fun TopAppBarHome(
 private fun TopAppBarHomePreview() {
     FighterRankComposeTheme {
         Scaffold(
-            topBar = { TopAppBarHome({}) },
+            topBar = { TopAppBar({}) },
             modifier = Modifier.fillMaxSize(),
         ) { innerPadding ->
             Box(Modifier.padding(innerPadding))
