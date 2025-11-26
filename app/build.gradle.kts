@@ -31,11 +31,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         compose = true
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
     }
 }
 
@@ -61,5 +64,4 @@ dependencies {
     implementation(libs.compose.charts) // COMPOSE CHARTS
     implementation(libs.kotlinx.serialization.json) // COMPOSE SERIALIZATION
     implementation(libs.androidx.navigation.compose) // COMPOSE NAVIGATION
-
 }
