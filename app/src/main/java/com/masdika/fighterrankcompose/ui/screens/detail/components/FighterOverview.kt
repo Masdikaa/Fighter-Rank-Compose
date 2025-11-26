@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -43,15 +44,7 @@ import com.masdika.fighterrankcompose.ui.theme.MavenPro
 
 @Composable
 fun FighterOverview(
-    fighterImage: String,
-    fighterName: String,
-    fighterTitle: String,
-    fighterDivision: String,
-    fighterWins: Int,
-    fighterDraws: Int,
-    fighterLoses: Int,
-    fighterWinByKnockout: Int,
-    fighterWinBySubmission: Int,
+    fighter: Fighter,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -79,8 +72,8 @@ fun FighterOverview(
                 )
         }
         AsyncImage(
-            model = fighterImage,
-            contentDescription = fighterName + stringResource(R.string.fighter_image),
+            model = fighter.image,
+            contentDescription = fighter.image + stringResource(R.string.fighter_image),
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
             error = painterResource(R.drawable.ic_launcher_foreground),
             contentScale = ContentScale.Fit,
@@ -96,7 +89,7 @@ fun FighterOverview(
                 .fillMaxHeight(0.9f)
         ) {
             Text(
-                text = fighterName.uppercase(),
+                text = fighter.name.uppercase(),
                 fontFamily = BebasNeue,
                 fontSize = 24.sp,
                 textAlign = TextAlign.Start,
@@ -105,9 +98,9 @@ fun FighterOverview(
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.ExtraBold,
             )
-            if (fighterTitle.isNotEmpty()) {
+            if (fighter.title.isNotEmpty()) {
                 Text(
-                    text = fighterTitle.uppercase(),
+                    text = fighter.title.uppercase(),
                     fontFamily = MavenPro,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
@@ -118,7 +111,7 @@ fun FighterOverview(
                 )
             }
             Text(
-                text = (fighterDivision + " " + stringResource(R.string.division)).uppercase(),
+                text = (fighter.division + " " + stringResource(R.string.division)).uppercase(),
                 fontFamily = BebasNeue,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Start,
@@ -135,7 +128,7 @@ fun FighterOverview(
                 )
             )
             Text(
-                text = ("${fighterWins}-${fighterDraws}-${fighterLoses} (W-D-L)"),
+                text = ("${fighter.wins}-${fighter.draws}-${fighter.loses} (W-D-L)"),
                 fontFamily = BebasNeue,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Start,
@@ -160,7 +153,7 @@ fun FighterOverview(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "$fighterWinByKnockout",
+                        text = "${fighter.knockOutWins}",
                         fontFamily = BebasNeue,
                         fontSize = 70.sp,
                         color = MaterialTheme.colorScheme.onBackground,
@@ -200,7 +193,7 @@ fun FighterOverview(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "$fighterWinBySubmission",
+                        text = "${fighter.submissionWins}",
                         fontFamily = BebasNeue,
                         fontSize = 70.sp,
                         color = MaterialTheme.colorScheme.onBackground,
@@ -260,15 +253,7 @@ private fun FighterOverviewPreview() {
     val fighter = fighters.getOrNull(8)
     FighterRankComposeTheme {
         FighterOverview(
-            fighterImage = fighter!!.image,
-            fighterName = fighter.name,
-            fighterTitle = fighter.title,
-            fighterDivision = fighter.division,
-            fighterWins = fighter.wins,
-            fighterDraws = fighter.draws,
-            fighterLoses = fighter.loses,
-            fighterWinByKnockout = fighter.knockOutWins,
-            fighterWinBySubmission = fighter.submissionWins,
+            fighter = fighter!!,
             modifier = Modifier.background(MaterialTheme.colorScheme.background)
         )
     }

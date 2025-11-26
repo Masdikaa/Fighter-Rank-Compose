@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterStatisticChart
@@ -44,8 +45,8 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 @Composable
 fun DetailScreen(
     fighterName: String,
-    viewModel: DetailViewModel = viewModel<DetailViewModel>(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: DetailViewModel = viewModel<DetailViewModel>()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -53,6 +54,19 @@ fun DetailScreen(
         viewModel.findFighterByName(fighterName)
     }
 
+    DetailContent(
+        uiState = uiState,
+        onShareClick = { onShareClick() },
+        modifier = modifier
+    )
+}
+
+@Composable
+fun DetailContent(
+    uiState: DetailUIState,
+    onShareClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -60,13 +74,13 @@ fun DetailScreen(
             .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
-        when (val state = uiState) {
+        when (uiState) {
             is DetailUIState.Loading -> {
                 CircularProgressIndicator(color = MainRed)
             }
 
             is DetailUIState.Success -> {
-                val fighter = state.fighter
+                val fighter = uiState.fighter
                 val scrollState = rememberScrollState()
 
                 Column(
@@ -74,15 +88,7 @@ fun DetailScreen(
                     verticalArrangement = Arrangement.Center,
                 ) {
                     FighterOverview(
-                        fighterImage = fighter.image,
-                        fighterName = fighter.name,
-                        fighterTitle = fighter.title,
-                        fighterDivision = fighter.division,
-                        fighterWins = fighter.wins,
-                        fighterDraws = fighter.draws,
-                        fighterLoses = fighter.loses,
-                        fighterWinByKnockout = fighter.knockOutWins,
-                        fighterWinBySubmission = fighter.submissionWins,
+                        fighter = fighter,
                         modifier = Modifier
                             .fillMaxWidth()
                             .fillMaxHeight(0.32f)
@@ -125,7 +131,7 @@ fun DetailScreen(
 
             is DetailUIState.Error -> {
                 Text(
-                    text = "Fighter not found !",
+                    text = "Fighter not found!",
                     fontFamily = BebasNeue,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
@@ -151,22 +157,88 @@ fun onShareClick() {
 }
 
 @Preview(
-    name = "Detail Screen Light Mode",
+    name = "Success State Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Detail Screen Dark Mode",
+    name = "Success State Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun DetailScreenPreview() {
+private fun DetailContentSuccessPreview() {
+    val mockFighter = Fighter(
+        name = "Conor McGregor",
+        division = "Lightweight",
+        image = "",
+        description = "Conor Anthony McGregor is an Irish professional mixed martial artist. He is a former Ultimate Fighting Championship (UFC) featherweight and lightweight double-champion.",
+        wins = 22,
+        loses = 6,
+        draws = 0,
+        strikeAccuracy = 55.1,
+        takedownAccuracy = 55.0,
+        knockOutWins = 5,
+        submissionWins = 2,
+        title = "\"The Notorius\"",
+    )
+
     FighterRankComposeTheme {
-        DetailScreen("Masdika Ilhan Mansiz")
+        DetailContent(
+            uiState = DetailUIState.Success(mockFighter),
+            onShareClick = {},
+        )
+    }
+}
+
+@Preview(
+    name = "Loading State Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Loading State Dark Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun DetailContentLoadingPreview() {
+    FighterRankComposeTheme {
+        DetailContent(
+            uiState = DetailUIState.Loading,
+            onShareClick = {},
+        )
+    }
+}
+
+@Preview(
+    name = "Error State Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Error State Dark Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun DetailContentErrorPreview() {
+    FighterRankComposeTheme {
+        DetailContent(
+            uiState = DetailUIState.Error("Fighter not found!"),
+            onShareClick = {},
+        )
     }
 }
