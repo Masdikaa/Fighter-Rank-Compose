@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -14,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -27,6 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.components.TopAppBar
+import com.masdika.fighterrankcompose.ui.components.icons.AboutIcon
 import com.masdika.fighterrankcompose.ui.screens.home.components.FighterList
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -46,6 +50,28 @@ fun HomeScreen(
                 onNavigateToProfileScreen = { onShowDropDownMenu() },
                 onNavigateToSourceCodeScreen = { onShowDropDownMenu() },
             )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { },
+                containerColor = MainRed,
+                contentColor = Color.White
+            ) {
+                Icon(
+                    imageVector = AboutIcon,
+                    contentDescription = "Add",
+                )
+            }
+//            Button(
+//                onClick = {},
+//                modifier = Modifier.background(MainRed).size(100.dp),
+//            ) {
+//                Icon(
+//                    imageVector = FighterIcon,
+//                    contentDescription = "",
+//                    tint = Color.White
+//                )
+//            }
         },
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
