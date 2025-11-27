@@ -36,14 +36,15 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onNavigateToDetail: (String) -> Unit,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel<HomeViewModel>()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                onShowDropdownMenu = { onShowDropDownMenu() }
+                onNavigateToProfileScreen = { onShowDropDownMenu() },
+                onNavigateToSourceCodeScreen = { onShowDropDownMenu() },
             )
         },
         modifier = modifier.fillMaxSize()
@@ -126,7 +127,7 @@ private fun HomeContentLoadingPreview() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    onShowDropdownMenu = { onShowDropDownMenu() }
+                    {}, {}
                 )
             },
             modifier = Modifier.fillMaxSize()
@@ -160,7 +161,7 @@ private fun HomeContentSuccessPreview() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    onShowDropdownMenu = { onShowDropDownMenu() }
+                    {}, {}
                 )
             },
             modifier = Modifier.fillMaxSize()
@@ -195,7 +196,7 @@ private fun HomeContentErrorPreview() {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    onShowDropdownMenu = {}
+                    {}, {}
                 )
             },
             modifier = Modifier.fillMaxSize()
@@ -208,4 +209,3 @@ private fun HomeContentErrorPreview() {
         }
     }
 }
-

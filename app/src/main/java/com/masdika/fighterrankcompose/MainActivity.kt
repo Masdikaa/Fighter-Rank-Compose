@@ -29,3 +29,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+//#FF121316 BG Dark
+//#FFFAF9FD BG Light
+
+//#FF1B1B1F OnBG Dark
+//#FFE3E2E6 onBG Light

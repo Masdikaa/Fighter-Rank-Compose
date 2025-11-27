@@ -11,6 +11,9 @@
     <string name="takedown_accuracy">Takedown Accuracy</string>
     <string name="fighter_not_found">Fighter not found!</string>
     <string name="failed_to_load_fighters">Failed to load fighters!</string>
+    <string name="about_icon">About Icon</string>
+    <string name="profile">Profile</string>
+    <string name="source_code">Source Code Icon</string>
 
     <!--DATA-->
     <string-array name="fighter_names">
