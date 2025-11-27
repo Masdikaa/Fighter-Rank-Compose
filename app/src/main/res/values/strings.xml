@@ -10,6 +10,7 @@
     <string name="striking_accuracy">Striking Accuracy</string>
     <string name="takedown_accuracy">Takedown Accuracy</string>
     <string name="fighter_not_found">Fighter not found!</string>
+    <string name="failed_to_load_fighters">Failed to load fighters!</string>
 
     <!--DATA-->
     <string-array name="fighter_names">
