@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -42,10 +43,7 @@ import com.masdika.fighterrankcompose.ui.theme.MavenPro
 
 @Composable
 fun ListFighterCard(
-    fighterImage: String,
-    fighterName: String,
-    fighterDivision: String,
-    fighterDescription: String,
+    fighter: Fighter,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -54,8 +52,8 @@ fun ListFighterCard(
         modifier = modifier
     ) {
         AsyncImage(
-            model = fighterImage,
-            contentDescription = fighterName + stringResource(R.string.fighter_image),
+            model = fighter.image,
+            contentDescription = fighter.name + stringResource(R.string.fighter_image),
             contentScale = ContentScale.Fit,
             alignment = Alignment.BottomCenter,
             placeholder = painterResource(R.drawable.ic_launcher_foreground),
@@ -76,7 +74,7 @@ fun ListFighterCard(
                 .fillMaxHeight()
         ) {
             Text(
-                text = fighterName,
+                text = fighter.name,
                 fontFamily = BebasNeue,
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -86,7 +84,7 @@ fun ListFighterCard(
             )
 
             Text(
-                text = fighterDivision.uppercase() + " DIVISION",
+                text = fighter.division.uppercase() + " DIVISION",
                 fontFamily = MavenPro,
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.onBackground,
@@ -96,7 +94,7 @@ fun ListFighterCard(
             )
 
             Text(
-                text = fighterDescription,
+                text = fighter.description,
                 fontFamily = FontFamily.SansSerif,
                 maxLines = 5,
                 fontWeight = FontWeight.Normal,
@@ -144,10 +142,7 @@ private fun ListFighterCardPreview() {
                 .background(MaterialTheme.colorScheme.background)
         ) {
             ListFighterCard(
-                fighterImage = fighter!!.image,
-                fighterName = fighter.name,
-                fighterDivision = fighter.division,
-                fighterDescription = fighter.description,
+                fighter = fighter!!,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(135.dp)

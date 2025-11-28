@@ -16,8 +16,8 @@ val ListIcon: ImageVector
         }
         _ListIcon = ImageVector.Builder(
             name = "ListIcon",
-            defaultWidth = 20.dp,
-            defaultHeight = 20.dp,
+            defaultWidth = 24.dp,
+            defaultHeight = 24.dp,
             viewportWidth = 512f,
             viewportHeight = 512f
         ).apply {

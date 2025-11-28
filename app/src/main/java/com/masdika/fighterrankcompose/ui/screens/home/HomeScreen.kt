@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
@@ -16,6 +17,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,6 +37,7 @@ import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.components.TopAppBar
 import com.masdika.fighterrankcompose.ui.components.icons.GridIcon
+import com.masdika.fighterrankcompose.ui.components.icons.ListIcon
 import com.masdika.fighterrankcompose.ui.screens.home.components.FighterList
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -47,6 +53,8 @@ fun HomeScreen(
     onChangeContentLayout: () -> Unit
 ) {
     val listState = rememberLazyListState()
+    val gridState = rememberLazyGridState()
+    var isGridLayout by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -57,7 +65,7 @@ fun HomeScreen(
         },
         floatingActionButton = {
             AnimatedVisibility(
-                visible = !listState.isScrollInProgress,
+                visible = !listState.isScrollInProgress && !gridState.isScrollInProgress,
                 enter = fadeIn(
                     animationSpec = tween(durationMillis = 100)
                 ),
@@ -66,13 +74,16 @@ fun HomeScreen(
                 )
             ) {
                 FloatingActionButton(
-                    onClick = onChangeContentLayout,
+                    onClick = {
+                        isGridLayout = !isGridLayout
+                        onChangeContentLayout()
+                    },
                     containerColor = MainRed.copy(0.75f),
                     contentColor = Color.White,
                 ) {
                     Icon(
-                        imageVector = GridIcon,
-                        contentDescription = "Add",
+                        imageVector = if (isGridLayout) ListIcon else GridIcon,
+                        contentDescription = "",
                     )
                 }
             }
@@ -95,7 +106,9 @@ fun HomeScreen(
                         fighters = uiState.fighters,
                         onNavigateToDetail = onNavigateToDetail,
                         modifier = Modifier.fillMaxSize(),
-                        fighterListState = listState
+                        isGridLayout = isGridLayout,
+                        fighterListState = listState,
+                        fighterGridState = gridState
                     )
                 }
 
