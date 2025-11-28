@@ -1,7 +1,6 @@
 package com.masdika.fighterrankcompose.ui.screens.detail
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,10 +18,9 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -32,10 +30,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.masdika.fighterrankcompose.R
-import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterStatisticChart
@@ -46,28 +42,9 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 
 @Composable
 fun DetailScreen(
-    fighterName: String,
-    modifier: Modifier = Modifier,
-    viewModel: DetailViewModel = viewModel<DetailViewModel>()
-) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(key1 = fighterName) {
-        viewModel.findFighterByName(fighterName)
-    }
-
-    DetailContent(
-        uiState = uiState,
-        onShareClick = { onShareClick() },
-        modifier = modifier
-    )
-}
-
-@Composable
-fun DetailContent(
-    uiState: DetailUIState,
     onShareClick: () -> Unit,
-    modifier: Modifier = Modifier
+    uiState: DetailUIState,
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier
@@ -154,93 +131,76 @@ fun DetailContent(
     }
 }
 
-fun onShareClick() {
-    Log.i("onShareClick", "Clicked")
-}
-
 @Preview(
-    name = "Success State Light Mode",
+    name = "Detail Screen Success Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Success State Dark Mode",
+    name = "Detail Screen Success Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun DetailContentSuccessPreview() {
-    val mockFighter = Fighter(
-        name = "Conor McGregor",
-        division = "Lightweight",
-        image = "",
-        description = "Conor Anthony McGregor is an Irish professional mixed martial artist. He is a former Ultimate Fighting Championship (UFC) featherweight and lightweight double-champion.",
-        wins = 22,
-        losses = 6,
-        draws = 0,
-        strikeAccuracy = 55.1,
-        takedownAccuracy = 55.0,
-        knockOutWins = 5,
-        submissionWins = 2,
-        title = "\"The Notorius\"",
-    )
-
+private fun DetailScreenSuccessPreview() {
     FighterRankComposeTheme {
-        DetailContent(
-            uiState = DetailUIState.Success(mockFighter),
+        val fighters = loadFighters(LocalContext.current)
+        val fighter = fighters.getOrNull(10)
+        DetailScreen(
             onShareClick = {},
+            uiState = DetailUIState.Success(fighter!!),
         )
     }
 }
 
 @Preview(
-    name = "Loading State Light Mode",
+    name = "Detail Screen Loading Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Loading State Dark Mode",
+    name = "Detail Screen Loading Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun DetailContentLoadingPreview() {
+private fun DetailScreenLoadingPreview() {
     FighterRankComposeTheme {
-        DetailContent(
+        DetailScreen(
+            onShareClick = {},
             uiState = DetailUIState.Loading,
-            onShareClick = {},
         )
     }
 }
 
 @Preview(
-    name = "Error State Light Mode",
+    name = "Detail Screen Error Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Error State Dark Mode",
+    name = "Detail Screen Error Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun DetailContentErrorPreview() {
+private fun DetailScreenErrorPreview() {
     FighterRankComposeTheme {
-        DetailContent(
-            uiState = DetailUIState.Error(stringResource(R.string.fighter_not_found)),
+        DetailScreen(
             onShareClick = {},
+            uiState = DetailUIState.Error(stringResource(R.string.fighter_not_found)),
         )
     }
 }

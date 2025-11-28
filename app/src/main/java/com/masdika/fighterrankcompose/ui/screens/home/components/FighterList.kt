@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,9 +30,9 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 fun FighterList(
     fighters: List<Fighter>,
     onNavigateToDetail: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    fighterListState: LazyListState = rememberLazyListState()
 ) {
-    val fighterListState = rememberLazyListState()
     LazyColumn(
         state = fighterListState,
         modifier = modifier
@@ -48,7 +49,7 @@ fun FighterList(
             items = fighters,
             key = { it.name }
         ) { fighter ->
-            FighterCard(
+            ListFighterCard(
                 fighterImage = fighter.image,
                 fighterName = fighter.name,
                 fighterDivision = fighter.division,
@@ -81,6 +82,7 @@ fun FighterList(
 @Preview(
     name = "FighterList Dark Mode",
     showBackground = true,
+    backgroundColor = 0xFF121316C,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES

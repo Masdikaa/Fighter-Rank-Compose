@@ -35,12 +35,13 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.source.loadFighters
+import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 import com.masdika.fighterrankcompose.ui.theme.MavenPro
 
 @Composable
-fun FighterCard(
+fun ListFighterCard(
     fighterImage: String,
     fighterName: String,
     fighterDivision: String,
@@ -76,7 +77,7 @@ fun FighterCard(
         ) {
             Text(
                 text = fighterName,
-                fontFamily = MavenPro,
+                fontFamily = BebasNeue,
                 maxLines = 1,
                 color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 20.sp,
@@ -132,7 +133,7 @@ fun FighterCard(
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun FighterCardPreview() {
+private fun ListFighterCardPreview() {
     val fighters = loadFighters(LocalContext.current)
     val fighter = fighters.getOrNull(1)
     FighterRankComposeTheme {
@@ -142,7 +143,7 @@ private fun FighterCardPreview() {
                 .padding(10.dp)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            FighterCard(
+            ListFighterCard(
                 fighterImage = fighter!!.image,
                 fighterName = fighter.name,
                 fighterDivision = fighter.division,

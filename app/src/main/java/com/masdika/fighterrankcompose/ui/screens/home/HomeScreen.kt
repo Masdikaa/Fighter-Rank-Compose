@@ -1,10 +1,14 @@
 package com.masdika.fighterrankcompose.ui.screens.home
 
 import android.content.res.Configuration
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -12,8 +16,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,11 +28,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.components.TopAppBar
-import com.masdika.fighterrankcompose.ui.components.icons.AboutIcon
+import com.masdika.fighterrankcompose.ui.components.icons.GridIcon
 import com.masdika.fighterrankcompose.ui.screens.home.components.FighterList
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -39,199 +40,168 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
+    uiState: HomeUIState,
     onNavigateToDetail: (String) -> Unit,
-    viewModel: HomeViewModel = viewModel<HomeViewModel>()
+    onNavigateToProfileScreen: () -> Unit,
+    onNavigateToSourceCodeScreen: () -> Unit,
+    onChangeContentLayout: () -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val listState = rememberLazyListState()
 
     Scaffold(
         topBar = {
             TopAppBar(
-                onNavigateToProfileScreen = { onShowDropDownMenu() },
-                onNavigateToSourceCodeScreen = { onShowDropDownMenu() },
+                onNavigateToProfileScreen = onNavigateToProfileScreen,
+                onNavigateToSourceCodeScreen = onNavigateToSourceCodeScreen,
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { },
-                containerColor = MainRed,
-                contentColor = Color.White
-            ) {
-                Icon(
-                    imageVector = AboutIcon,
-                    contentDescription = "Add",
+            AnimatedVisibility(
+                visible = !listState.isScrollInProgress,
+                enter = fadeIn(
+                    animationSpec = tween(durationMillis = 100)
+                ),
+                exit = fadeOut(
+                    animationSpec = tween(durationMillis = 100)
                 )
+            ) {
+                FloatingActionButton(
+                    onClick = onChangeContentLayout,
+                    containerColor = MainRed.copy(0.75f),
+                    contentColor = Color.White,
+                ) {
+                    Icon(
+                        imageVector = GridIcon,
+                        contentDescription = "Add",
+                    )
+                }
             }
-//            Button(
-//                onClick = {},
-//                modifier = Modifier.background(MainRed).size(100.dp),
-//            ) {
-//                Icon(
-//                    imageVector = FighterIcon,
-//                    contentDescription = "",
-//                    tint = Color.White
-//                )
-//            }
         },
         modifier = modifier.fillMaxSize()
     ) { innerPadding ->
-        HomeContent(
-            onNavigateToDetail = onNavigateToDetail,
-            uiState = uiState,
-            modifier = Modifier.padding(innerPadding)
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            when (uiState) {
+                is HomeUIState.Loading -> {
+                    CircularProgressIndicator(color = MainRed)
+                }
+
+                is HomeUIState.Success -> {
+                    FighterList(
+                        fighters = uiState.fighters,
+                        onNavigateToDetail = onNavigateToDetail,
+                        modifier = Modifier.fillMaxSize(),
+                        fighterListState = listState
+                    )
+                }
+
+                is HomeUIState.Error -> {
+                    Text(
+                        text = stringResource(R.string.failed_to_load_fighters),
+                        fontFamily = BebasNeue,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = TextStyle(
+                            platformStyle = PlatformTextStyle(
+                                includeFontPadding = true
+                            ), lineHeightStyle = LineHeightStyle(
+                                trim = LineHeightStyle.Trim.Both,
+                                alignment = LineHeightStyle.Alignment.Top,
+                            )
+                        ),
+                    )
+                }
+            }
+        }
+
+    }
+}
+
+@Preview(
+    name = "Home Screen Success Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Home Screen Success Dark Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+fun HomeScreenSuccessPreview() {
+    FighterRankComposeTheme {
+        val fighters = loadFighters(LocalContext.current)
+        HomeScreen(
+            uiState = HomeUIState.Success(fighters),
+            onNavigateToDetail = {},
+            onNavigateToProfileScreen = {},
+            onNavigateToSourceCodeScreen = {},
+            onChangeContentLayout = {}
         )
     }
 }
 
-@Composable
-fun HomeContent(
-    onNavigateToDetail: (String) -> Unit,
-    uiState: HomeUIState,
-    modifier: Modifier = Modifier
-) {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize()
-    ) {
-        when (uiState) {
-            is HomeUIState.Loading -> {
-                CircularProgressIndicator(color = MainRed)
-            }
-
-            is HomeUIState.Success -> {
-                FighterList(
-                    fighters = uiState.fighters,
-                    onNavigateToDetail = onNavigateToDetail,
-                    modifier = Modifier.fillMaxSize(),
-                )
-            }
-
-            is HomeUIState.Error -> {
-                Text(
-                    text = stringResource(R.string.failed_to_load_fighters),
-                    fontFamily = BebasNeue,
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    style = TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = true
-                        ), lineHeightStyle = LineHeightStyle(
-                            trim = LineHeightStyle.Trim.Both,
-                            alignment = LineHeightStyle.Alignment.Top,
-                        )
-                    ),
-                )
-            }
-        }
-    }
-}
-
-fun onShowDropDownMenu() {
-    Log.i("onShowDropDownMenu", "Clicked")
-}
-
 @Preview(
-    name = "Loading State Light Mode",
+    name = "Home Screen Loading Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Loading State Dark Mode",
+    name = "Home Screen Loading Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun HomeContentLoadingPreview() {
+fun HomeScreenLoadingPreview() {
     FighterRankComposeTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    {}, {}
-                )
-            },
-            modifier = Modifier.fillMaxSize()
-        ) { innerPadding ->
-            HomeContent(
-                onNavigateToDetail = {},
-                uiState = HomeUIState.Loading,
-                modifier = Modifier.padding(innerPadding)
-            )
-        }
+        HomeScreen(
+            uiState = HomeUIState.Loading,
+            onNavigateToDetail = {},
+            onNavigateToProfileScreen = {},
+            onNavigateToSourceCodeScreen = {},
+            onChangeContentLayout = {}
+        )
     }
 }
 
 @Preview(
-    name = "Success State Light Mode",
+    name = "Home Screen Error Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "Success State Dark Mode",
+    name = "Home Screen Error Dark Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun HomeContentSuccessPreview() {
+fun HomeScreenErrorPreview() {
     FighterRankComposeTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    {}, {}
-                )
-            },
-            modifier = Modifier.fillMaxSize()
-        ) { innerPadding ->
-            val fighters = loadFighters(LocalContext.current)
-            HomeContent(
-                onNavigateToDetail = {},
-                uiState = HomeUIState.Success(fighters),
-                modifier = Modifier.padding(innerPadding)
-            )
-        }
-    }
-}
-
-@Preview(
-    name = "Error State Light Mode",
-    showBackground = true,
-    widthDp = 425,
-    heightDp = 944,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Error State Dark Mode",
-    showBackground = true,
-    widthDp = 425,
-    heightDp = 944,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Composable
-private fun HomeContentErrorPreview() {
-    FighterRankComposeTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    {}, {}
-                )
-            },
-            modifier = Modifier.fillMaxSize()
-        ) { innerPadding ->
-            HomeContent(
-                onNavigateToDetail = {},
-                uiState = HomeUIState.Error(stringResource(R.string.failed_to_load_fighters)),
-                modifier = Modifier.padding(innerPadding)
-            )
-        }
+        HomeScreen(
+            uiState = HomeUIState.Error(stringResource(R.string.failed_to_load_fighters)),
+            onNavigateToDetail = {},
+            onNavigateToProfileScreen = {},
+            onNavigateToSourceCodeScreen = {},
+            onChangeContentLayout = {}
+        )
     }
 }
