@@ -14,6 +14,7 @@
     <string name="about_icon">About Icon</string>
     <string name="profile">Profile</string>
     <string name="source_code">Source Code Icon</string>
+    <string name="masdika_ilhan_mansiz">Masdika Ilhan Mansiz</string>
 
     <!--DATA-->
     <string-array name="fighter_names">
