@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailViewModel
 import com.masdika.fighterrankcompose.ui.screens.home.HomeScreen
@@ -36,7 +37,7 @@ fun AppNavigation(
                     navController.navigate(Screen.Detail(fighterName = fighterName))
                 },
                 onNavigateToProfileScreen = {
-                    // TODO: Implement navigation to profile screen
+                    navController.navigate(Screen.About)
                 },
                 onNavigateToSourceCodeScreen = {
                     // TODO: Implement navigation to source code screen
@@ -63,6 +64,11 @@ fun AppNavigation(
                     // TODO: Implement Share Button click action
                 }
             )
+        }
+
+        // About Route
+        composable<Screen.About> {
+            AboutScreen()
         }
     }
 }

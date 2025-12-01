@@ -8,10 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.kyant.backdrop.backdrops.layerBackdrop
-import com.kyant.backdrop.backdrops.rememberLayerBackdrop
 import com.masdika.fighterrankcompose.navigation.AppNavigation
-import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,10 +21,9 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-//                    AppNavigation(
-//                        navController = navController,
-//                    )
-                    AboutScreen()
+                    AppNavigation(
+                        navController = navController,
+                    )
                 }
             }
         }

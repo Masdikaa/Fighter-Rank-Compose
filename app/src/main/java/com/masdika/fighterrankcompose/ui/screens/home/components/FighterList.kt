@@ -1,5 +1,6 @@
 package com.masdika.fighterrankcompose.ui.screens.home.components
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,8 +21,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 
 @Composable
@@ -107,29 +110,30 @@ fun FighterList(
     }
 }
 
-//@Preview(
-//    name = "FighterList Light Mode",
-//    showBackground = true,
-//    widthDp = 425,
-//    heightDp = 944,
-//    uiMode = Configuration.UI_MODE_NIGHT_NO
-//)
-//@Preview(
-//    name = "FighterList Dark Mode",
-//    showBackground = true,
-//    backgroundColor = 0xFF121316C,
-//    widthDp = 425,
-//    heightDp = 944,
-//    uiMode = Configuration.UI_MODE_NIGHT_YES
-//)
-//@Composable
-//private fun FighterListPreview() {
-//    FighterRankComposeTheme {
+@Preview(
+    name = "FighterList Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "FighterList Dark Mode",
+    showBackground = true,
+    backgroundColor = 0xFF121316C,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun FighterListPreview() {
+    FighterRankComposeTheme {
 //        val fighters = loadFighters(LocalContext.current)
 //        FighterList(
 //            fighters = fighters,
 //            onNavigateToDetail = {},
+//            isGridLayout = true,
 //            modifier = Modifier.fillMaxSize()
 //        )
-//    }
-//}
+    }
+}

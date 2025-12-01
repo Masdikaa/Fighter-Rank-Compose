@@ -64,7 +64,7 @@ fun DropdownMenu(
             DropdownMenuItem(
                 text = {
                     Text(
-                        text = "About Me",
+                        text = "About and Profile",
                         fontFamily = BebasNeue,
                         fontSize = 18.sp
                     )

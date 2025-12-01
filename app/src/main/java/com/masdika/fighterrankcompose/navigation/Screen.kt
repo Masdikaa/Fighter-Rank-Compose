@@ -8,4 +8,7 @@ sealed interface Screen {
 
     @Serializable
     data class Detail(val fighterName: String)
+
+    @Serializable
+    data object About : Screen
 }
