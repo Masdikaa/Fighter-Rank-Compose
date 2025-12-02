@@ -1,5 +1,6 @@
 package com.masdika.fighterrankcompose.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,14 +14,18 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
+import com.masdika.fighterrankcompose.ui.screens.detail.DetailUIState
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailViewModel
 import com.masdika.fighterrankcompose.ui.screens.home.HomeScreen
 import com.masdika.fighterrankcompose.ui.screens.home.HomeViewModel
+import com.masdika.fighterrankcompose.utils.openUrl
+import com.masdika.fighterrankcompose.utils.shareContent
 
 @Composable
 fun AppNavigation(
-    modifier: Modifier = Modifier,
-    navController: NavHostController
+    context: Context,
+    navController: NavHostController,
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         navController = navController,
@@ -31,6 +36,7 @@ fun AppNavigation(
         composable<Screen.Home> {
             val viewModel = viewModel<HomeViewModel>()
             val uiState by viewModel.uiState.collectAsState()
+
             HomeScreen(
                 uiState = uiState,
                 onNavigateToDetail = { fighterName ->
@@ -40,7 +46,7 @@ fun AppNavigation(
                     navController.navigate(Screen.About)
                 },
                 onNavigateToSourceCodeScreen = {
-                    // TODO: Implement navigation to source code screen
+                    context.openUrl("https://github.com/Masdikaa/Fighter-Rank-Compose")
                 },
                 onChangeContentLayout = {
                     // TODO: Implement FAB click action
@@ -61,7 +67,10 @@ fun AppNavigation(
             DetailScreen(
                 uiState = uiState,
                 onShareClick = {
-                    // TODO: Implement Share Button click action
+                    val fighter = (uiState as? DetailUIState.Success)?.fighter
+                    if (fighter != null) {
+                        context.shareContent(fighter.name, fighter.description)
+                    }
                 }
             )
         }

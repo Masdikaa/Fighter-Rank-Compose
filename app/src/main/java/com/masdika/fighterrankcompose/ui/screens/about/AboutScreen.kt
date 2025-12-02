@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -44,6 +45,7 @@ import com.masdika.fighterrankcompose.ui.screens.about.components.ProfileImage
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
+import com.masdika.fighterrankcompose.utils.openUrl
 
 @Composable
 fun AboutScreen(
@@ -51,7 +53,8 @@ fun AboutScreen(
 ) {
     val backdrop = rememberLayerBackdrop()
     val surfaceColor = MaterialTheme.colorScheme.background.copy(0.2f)
-    
+    val context = LocalContext.current
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
@@ -151,6 +154,7 @@ fun AboutScreen(
                     },
                     onDrawSurface = { drawRect(surfaceColor.copy(0.3f)) }
                 )
+
             ContentAbout(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -178,7 +182,7 @@ fun AboutScreen(
             ContentCard(
                 icon = EmailIcon,
                 socialMedia = "Email",
-                socialMediaAccount = "@masdikailhanmansiz@gmail.com",
+                socialMediaAccount = "masdikailhanmansiz@gmail.com",
                 modifier = contentCardModifier.clickable(
                     onClick = { Log.i("About Content", "Email") }
                 )
@@ -189,7 +193,7 @@ fun AboutScreen(
                 socialMediaAccount = "Masdika Ilhan Mansiz",
                 modifier = contentCardModifier
                     .clickable(
-                        onClick = { Log.i("About Content", "LinkedIn") }
+                        onClick = { context.openUrl("https://www.linkedin.com/in/masdikailhanmansiz") }
                     )
             )
             ContentCard(
@@ -198,7 +202,7 @@ fun AboutScreen(
                 socialMediaAccount = "Masdikaa",
                 modifier = contentCardModifier
                     .clickable(
-                        onClick = { Log.i("About Content", "GitHub") }
+                        onClick = { context.openUrl("https://github.com/Masdikaa") }
                     )
             )
             ContentCard(
@@ -206,7 +210,7 @@ fun AboutScreen(
                 socialMedia = "Instagram",
                 socialMediaAccount = "Masdikaa",
                 modifier = contentCardModifier.clickable(
-                    onClick = { Log.i("About Content", "Instagram") }
+                    onClick = { context.openUrl("https://www.instagram.com/masdikailhannn") }
                 )
             )
             Spacer(Modifier.height(10.dp))
@@ -235,3 +239,5 @@ private fun AboutScreenPreview() {
         AboutScreen()
     }
 }
+
+// TODO() Refactor UI About

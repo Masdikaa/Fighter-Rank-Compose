@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 import com.masdika.fighterrankcompose.navigation.AppNavigation
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
@@ -18,10 +19,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             FighterRankComposeTheme {
                 val navController = rememberNavController()
+                val context = LocalContext.current
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
                     AppNavigation(
+                        context = context,
                         navController = navController,
                     )
                 }
