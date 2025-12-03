@@ -29,7 +29,7 @@ import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 @Composable
 fun ContentCard(
     icon: ImageVector,
-    socialMedia: String,
+    socialMediaName: String,
     socialMediaAccount: String,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +59,7 @@ fun ContentCard(
                 .padding(vertical = 10.dp)
         ) {
             Text(
-                text = socialMedia,
+                text = socialMediaName,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
@@ -97,7 +97,7 @@ private fun ContentCardPreview() {
     FighterRankComposeTheme {
         ContentCard(
             icon = GithubIcon,
-            socialMedia = "GitHub",
+            socialMediaName = "GitHub",
             socialMediaAccount = "Masdikaa",
         )
     }

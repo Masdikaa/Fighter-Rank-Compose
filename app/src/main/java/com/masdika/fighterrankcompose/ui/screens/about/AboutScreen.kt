@@ -1,5 +1,6 @@
 package com.masdika.fighterrankcompose.ui.screens.about
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.util.Log
 import androidx.compose.foundation.background
@@ -19,22 +20,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.net.toUri
 import com.kyant.backdrop.backdrops.rememberLayerBackdrop
-import com.kyant.backdrop.drawBackdrop
-import com.kyant.backdrop.effects.blur
-import com.kyant.backdrop.effects.lens
-import com.kyant.backdrop.effects.vibrancy
+import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.data.model.SocialMediaItem
 import com.masdika.fighterrankcompose.ui.components.icons.EmailIcon
 import com.masdika.fighterrankcompose.ui.components.icons.GithubIcon
 import com.masdika.fighterrankcompose.ui.components.icons.InstagramIcon
@@ -45,6 +45,7 @@ import com.masdika.fighterrankcompose.ui.screens.about.components.ProfileImage
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
+import com.masdika.fighterrankcompose.ui.theme.glassmorphism
 import com.masdika.fighterrankcompose.utils.openUrl
 
 @Composable
@@ -54,6 +55,34 @@ fun AboutScreen(
     val backdrop = rememberLayerBackdrop()
     val surfaceColor = MaterialTheme.colorScheme.background.copy(0.2f)
     val context = LocalContext.current
+    val socialMediaItems = remember {
+        listOf(
+            SocialMediaItem(
+                icon = EmailIcon,
+                socialMediaName = context.getString(R.string.email),
+                socialMediaAccount = context.getString(R.string.my_email_address)
+            ),
+            SocialMediaItem(
+                icon = LinkedinIcon,
+                socialMediaName = context.getString(R.string.linkedin),
+                socialMediaAccount = context.getString(R.string.linkedin_username),
+                url = context.getString(R.string.linkedin_url)
+            ),
+            SocialMediaItem(
+                icon = GithubIcon,
+                socialMediaName = context.getString(R.string.github),
+                socialMediaAccount = context.getString(R.string.github_username),
+                url = context.getString(R.string.github_url)
+
+            ),
+            SocialMediaItem(
+                icon = InstagramIcon,
+                socialMediaName = context.getString(R.string.instagram),
+                socialMediaAccount = context.getString(R.string.instagram_username),
+                url = context.getString(R.string.instagram_url)
+            )
+        )
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -80,18 +109,12 @@ fun AboutScreen(
         ) {
             ProfileImage(
                 model = "",
-                modifier = Modifier.drawBackdrop(
+                modifier = Modifier.glassmorphism(
                     backdrop = backdrop,
-                    shape = { CircleShape },
-                    effects = {
-                        vibrancy()
-                        lens(
-                            refractionHeight = 16f.dp.toPx(),
-                            refractionAmount = 32f.dp.toPx()
-                        )
-                        blur(radius = 4f.dp.toPx())
-                    },
-                    onDrawSurface = { drawRect(surfaceColor) }
+                    surfaceColor = surfaceColor,
+                    shape = CircleShape,
+                    depthEffect = false,
+                    chromaticAberration = false
                 )
             )
         }
@@ -111,24 +134,7 @@ fun AboutScreen(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
                 .fillMaxWidth(0.95f)
-                .drawBackdrop(
-                    backdrop = backdrop,
-                    shape = { RoundedCornerShape(10.dp) },
-                    effects = {
-                        vibrancy()
-                        blur(
-                            radius = 4f.dp.toPx(),
-                            edgeTreatment = TileMode.Clamp
-                        )
-                        lens(
-                            refractionHeight = 16f.dp.toPx(),
-                            refractionAmount = 32f.dp.toPx(),
-                            depthEffect = true,
-                            chromaticAberration = true
-                        )
-                    },
-                    onDrawSurface = { drawRect(surfaceColor) }
-                )
+                .glassmorphism(backdrop, surfaceColor, blurRadius = 4f)
         ) {
             val contentCardModifier: Modifier = Modifier
                 .fillMaxWidth()
@@ -136,83 +142,49 @@ fun AboutScreen(
                 .padding(horizontal = 10.dp)
                 .padding(top = 10.dp)
                 .clip(RoundedCornerShape(10.dp))
-                .drawBackdrop(
-                    backdrop = backdrop,
-                    shape = { RoundedCornerShape(10.dp) },
-                    effects = {
-                        vibrancy()
-                        blur(
-                            radius = 6f.dp.toPx(),
-                            edgeTreatment = TileMode.Clamp
-                        )
-                        lens(
-                            refractionHeight = 16f.dp.toPx(),
-                            refractionAmount = 32f.dp.toPx(),
-                            depthEffect = true,
-                            chromaticAberration = true
-                        )
-                    },
-                    onDrawSurface = { drawRect(surfaceColor.copy(0.3f)) }
-                )
+                .glassmorphism(backdrop, surfaceColor.copy(0.3f))
 
             ContentAbout(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp)
                     .padding(top = 10.dp)
-                    .drawBackdrop(
-                        backdrop = backdrop,
-                        shape = { RoundedCornerShape(10.dp) },
-                        effects = {
-                            vibrancy()
-                            blur(
-                                radius = 6f.dp.toPx(),
-                                edgeTreatment = TileMode.Clamp
-                            )
-                            lens(
-                                refractionHeight = 16f.dp.toPx(),
-                                refractionAmount = 32f.dp.toPx(),
-                                depthEffect = true,
-                                chromaticAberration = true
-                            )
-                        },
-                        onDrawSurface = { drawRect(surfaceColor.copy(0.3f)) }
-                    )
+                    .glassmorphism(backdrop, surfaceColor.copy(0.3f))
             )
-            ContentCard(
-                icon = EmailIcon,
-                socialMedia = "Email",
-                socialMediaAccount = "masdikailhanmansiz@gmail.com",
-                modifier = contentCardModifier.clickable(
-                    onClick = { Log.i("About Content", "Email") }
+            socialMediaItems.forEach { item ->
+                ContentCard(
+                    icon = item.icon,
+                    socialMediaName = item.socialMediaName,
+                    socialMediaAccount = item.socialMediaAccount,
+                    modifier = contentCardModifier.clickable {
+                        item.url?.let { url ->
+                            context.openUrl(url)
+                        } ?: run {
+                            if (item.socialMediaName == "Email") {
+                                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                    data = "mailto:${item.socialMediaAccount}".toUri()
+                                    putExtra(Intent.EXTRA_SUBJECT, "Whatsapp Masdika")
+                                }
+                                try {
+                                    context.startActivity(intent)
+                                    Log.i(
+                                        "AboutScreen",
+                                        "Email card clicked. Intent to open email client!."
+                                    )
+                                } catch (e: Exception) {
+                                    e.printStackTrace()
+                                }
+                            } else {
+                                Log.i(
+                                    "contentCard",
+                                    "No url passed"
+                                )
+                            }
+
+                        }
+                    }
                 )
-            )
-            ContentCard(
-                icon = LinkedinIcon,
-                socialMedia = "LinkedIn",
-                socialMediaAccount = "Masdika Ilhan Mansiz",
-                modifier = contentCardModifier
-                    .clickable(
-                        onClick = { context.openUrl("https://www.linkedin.com/in/masdikailhanmansiz") }
-                    )
-            )
-            ContentCard(
-                icon = GithubIcon,
-                socialMedia = "GitHub",
-                socialMediaAccount = "Masdikaa",
-                modifier = contentCardModifier
-                    .clickable(
-                        onClick = { context.openUrl("https://github.com/Masdikaa") }
-                    )
-            )
-            ContentCard(
-                icon = InstagramIcon,
-                socialMedia = "Instagram",
-                socialMediaAccount = "Masdikaa",
-                modifier = contentCardModifier.clickable(
-                    onClick = { context.openUrl("https://www.instagram.com/masdikailhannn") }
-                )
-            )
+            }
             Spacer(Modifier.height(10.dp))
         }
         Spacer(Modifier.fillMaxHeight(0.03f))
@@ -239,5 +211,3 @@ private fun AboutScreenPreview() {
         AboutScreen()
     }
 }
-
-// TODO() Refactor UI About

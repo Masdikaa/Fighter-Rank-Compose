@@ -17,6 +17,20 @@
     <string name="masdika_ilhan_mansiz">Masdika Ilhan Mansiz</string>
     <string name="about_description">Built to demonstrate the capabilities of Jetpack Compose UI, this app showcases a list of UFC Pound-for-Pound fighters. This project serves as a practical implementation exercise, designed to bridge the gap between theoretical knowledge and professional-grade Android Development standards.</string>
 
+    <string name="about_this_project">About This Project</string>
+    <string name="email">Email</string>
+    <string name="my_email_address">masdikailhanmansiz@gmail.com</string>
+    <string name="linkedin">LinkedIn</string>
+    <string name="linkedin_username">Masdika Ilhan Mansiz</string>
+    <string name="linkedin_url">https://www.linkedin.com/in/masdikailhanmansiz</string>
+    <string name="github">GitHub</string>
+    <string name="github_username">Masdikaa</string>
+    <string name="github_url">https://github.com/Masdikaa</string>
+    <string name="instagram">Instagram</string>
+    <string name="instagram_username">Masdikaa</string>
+    <string name="instagram_url">https://www.instagram.com/masdikailhannn</string>
+
+
     <!--DATA-->
     <string-array name="fighter_names">
         <item>Masdika Ilhan Mansiz</item>
