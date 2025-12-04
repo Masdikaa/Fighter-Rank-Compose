@@ -17,17 +17,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,144 +55,144 @@ import com.masdika.fighterrankcompose.utils.openUrl
 
 @Composable
 fun AboutScreen(
-    modifier: Modifier = Modifier
+    uiState: AboutUIState,
+    modifier: Modifier = Modifier,
 ) {
-    val backdrop = rememberLayerBackdrop()
-    val surfaceColor = MaterialTheme.colorScheme.background.copy(0.2f)
-    val context = LocalContext.current
-    val socialMediaItems = remember {
-        listOf(
-            SocialMediaItem(
-                icon = EmailIcon,
-                socialMediaName = context.getString(R.string.email),
-                socialMediaAccount = context.getString(R.string.my_email_address)
-            ),
-            SocialMediaItem(
-                icon = LinkedinIcon,
-                socialMediaName = context.getString(R.string.linkedin),
-                socialMediaAccount = context.getString(R.string.linkedin_username),
-                url = context.getString(R.string.linkedin_url)
-            ),
-            SocialMediaItem(
-                icon = GithubIcon,
-                socialMediaName = context.getString(R.string.github),
-                socialMediaAccount = context.getString(R.string.github_username),
-                url = context.getString(R.string.github_url)
+    when (uiState) {
+        is AboutUIState.Loading -> {
+            CircularProgressIndicator(color = MainRed)
+        }
 
-            ),
-            SocialMediaItem(
-                icon = InstagramIcon,
-                socialMediaName = context.getString(R.string.instagram),
-                socialMediaAccount = context.getString(R.string.instagram_username),
-                url = context.getString(R.string.instagram_url)
-            )
-        )
-    }
+        is AboutUIState.Success -> {
+            val backdrop = rememberLayerBackdrop()
+            val surfaceColor = MaterialTheme.colorScheme.background.copy(0.2f)
+            val context = LocalContext.current
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colorStops = arrayOf(
-                        0.0f to MainRed,
-                        0.2f to MainRed.copy(0.8f),
-                        0.4f to MainRed.copy(0.6f),
-                        0.6f to MainRed.copy(0.4f),
-                        0.8f to MainRed.copy(0.2f),
-                        1f to MaterialTheme.colorScheme.background
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colorStops = arrayOf(
+                                0.0f to MainRed,
+                                0.2f to MainRed.copy(0.8f),
+                                0.4f to MainRed.copy(0.6f),
+                                0.6f to MainRed.copy(0.4f),
+                                0.8f to MainRed.copy(0.2f),
+                                1f to MaterialTheme.colorScheme.background
+                            )
+                        )
                     )
+            ) {
+                Box(
+                    contentAlignment = Alignment.BottomCenter,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.25f)
+                ) {
+                    ProfileImage(
+                        model = "",
+                        modifier = Modifier.glassmorphism(
+                            backdrop = backdrop,
+                            surfaceColor = surfaceColor,
+                            shape = CircleShape,
+                            depthEffect = false,
+                            chromaticAberration = false
+                        )
+                    )
+                }
+                Spacer(Modifier.fillMaxHeight(0.03f))
+                Text(
+                    text = "Masdika Ilhan Mansiz".uppercase(),
+                    textAlign = TextAlign.Center,
+                    fontFamily = BebasNeue,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.fillMaxWidth()
                 )
-            )
-    ) {
-        Box(
-            contentAlignment = Alignment.BottomCenter,
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.25f)
-        ) {
-            ProfileImage(
-                model = "",
-                modifier = Modifier.glassmorphism(
-                    backdrop = backdrop,
-                    surfaceColor = surfaceColor,
-                    shape = CircleShape,
-                    depthEffect = false,
-                    chromaticAberration = false
-                )
-            )
-        }
-        Spacer(Modifier.fillMaxHeight(0.03f))
-        Text(
-            text = "Masdika Ilhan Mansiz".uppercase(),
-            textAlign = TextAlign.Center,
-            fontFamily = BebasNeue,
-            fontSize = 26.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(Modifier.fillMaxHeight(0.03f))
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top,
-            modifier = Modifier
-                .fillMaxWidth(0.95f)
-                .glassmorphism(backdrop, surfaceColor, blurRadius = 4f)
-        ) {
-            val contentCardModifier: Modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .padding(horizontal = 10.dp)
-                .padding(top = 10.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .glassmorphism(backdrop, surfaceColor.copy(0.3f))
+                Spacer(Modifier.fillMaxHeight(0.03f))
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier
+                        .fillMaxWidth(0.95f)
+                        .glassmorphism(backdrop, surfaceColor, blurRadius = 4f)
+                ) {
+                    val contentCardModifier: Modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                        .padding(horizontal = 10.dp)
+                        .padding(top = 10.dp)
+                        .clip(RoundedCornerShape(10.dp))
+                        .glassmorphism(backdrop, surfaceColor.copy(0.3f))
 
-            ContentAbout(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp)
-                    .padding(top = 10.dp)
-                    .glassmorphism(backdrop, surfaceColor.copy(0.3f))
-            )
-            socialMediaItems.forEach { item ->
-                ContentCard(
-                    icon = item.icon,
-                    socialMediaName = item.socialMediaName,
-                    socialMediaAccount = item.socialMediaAccount,
-                    modifier = contentCardModifier.clickable {
-                        item.url?.let { url ->
-                            context.openUrl(url)
-                        } ?: run {
-                            if (item.socialMediaName == "Email") {
-                                val intent = Intent(Intent.ACTION_SENDTO).apply {
-                                    data = "mailto:${item.socialMediaAccount}".toUri()
-                                    putExtra(Intent.EXTRA_SUBJECT, "Whatsapp Masdika")
+                    ContentAbout(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp)
+                            .padding(top = 10.dp)
+                            .glassmorphism(backdrop, surfaceColor.copy(0.3f))
+                    )
+                    uiState.socialMediaItem.forEach { item ->
+                        ContentCard(
+                            icon = item.icon,
+                            socialMediaName = item.socialMediaName,
+                            socialMediaAccount = item.socialMediaAccount,
+                            modifier = contentCardModifier.clickable {
+                                item.url?.let { url ->
+                                    context.openUrl(url)
+                                } ?: run {
+                                    if (item.socialMediaName == "Email") {
+                                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                                            data = "mailto:${item.socialMediaAccount}".toUri()
+                                            putExtra(Intent.EXTRA_SUBJECT, "Whatsapp Masdika")
+                                        }
+                                        try {
+                                            context.startActivity(intent)
+                                            Log.i(
+                                                "AboutScreen",
+                                                "Email card clicked. Intent to open email client!."
+                                            )
+                                        } catch (e: Exception) {
+                                            e.printStackTrace()
+                                        }
+                                    } else {
+                                        Log.i(
+                                            "contentCard",
+                                            "No url passed"
+                                        )
+                                    }
                                 }
-                                try {
-                                    context.startActivity(intent)
-                                    Log.i(
-                                        "AboutScreen",
-                                        "Email card clicked. Intent to open email client!."
-                                    )
-                                } catch (e: Exception) {
-                                    e.printStackTrace()
-                                }
-                            } else {
-                                Log.i(
-                                    "contentCard",
-                                    "No url passed"
-                                )
                             }
-
-                        }
+                        )
                     }
-                )
+                    Spacer(Modifier.height(10.dp))
+                }
+                Spacer(Modifier.fillMaxHeight(0.03f))
             }
-            Spacer(Modifier.height(10.dp))
         }
-        Spacer(Modifier.fillMaxHeight(0.03f))
+
+        is AboutUIState.Error -> {
+            Text(
+                text = stringResource(R.string.failed_to_load_fighters),
+                fontFamily = BebasNeue,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = MaterialTheme.colorScheme.onBackground,
+                style = TextStyle(
+                    platformStyle = PlatformTextStyle(
+                        includeFontPadding = true
+                    ), lineHeightStyle = LineHeightStyle(
+                        trim = LineHeightStyle.Trim.Both,
+                        alignment = LineHeightStyle.Alignment.Top,
+                    )
+                ),
+            )
+        }
     }
 }
 
@@ -208,6 +213,32 @@ fun AboutScreen(
 @Composable
 private fun AboutScreenPreview() {
     FighterRankComposeTheme {
-        AboutScreen()
+        val mockSocialMediaItem = listOf(
+            SocialMediaItem(
+                icon = EmailIcon,
+                socialMediaName = "Email",
+                socialMediaAccount = "masdikailhanmansiz@gmail.com"
+            ),
+            SocialMediaItem(
+                icon = GithubIcon,
+                socialMediaName = "GitHub",
+                socialMediaAccount = "Masdikaa"
+            ),
+            SocialMediaItem(
+                icon = LinkedinIcon,
+                socialMediaName = "LinkedIn",
+                socialMediaAccount = "Masdika Ilhan Mansiz"
+            ),
+            SocialMediaItem(
+                icon = InstagramIcon,
+                socialMediaName = "Instagram",
+                socialMediaAccount = "ibwdvncjk"
+            ),
+        )
+        AboutScreen(
+            uiState = AboutUIState.Success(
+                socialMediaItem = mockSocialMediaItem
+            )
+        )
     }
 }

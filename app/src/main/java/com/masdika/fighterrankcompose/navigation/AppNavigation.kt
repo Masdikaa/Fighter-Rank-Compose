@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
+import com.masdika.fighterrankcompose.ui.screens.about.AboutViewModel
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailUIState
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailViewModel
@@ -77,7 +78,10 @@ fun AppNavigation(
 
         // About Route
         composable<Screen.About> {
-            AboutScreen()
+            val viewModel = viewModel<AboutViewModel>()
+            val uiState by viewModel.uiState.collectAsState()
+
+            AboutScreen(uiState)
         }
     }
 }
