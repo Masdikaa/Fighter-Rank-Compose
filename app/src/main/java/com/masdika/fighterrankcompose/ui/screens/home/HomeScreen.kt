@@ -17,10 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +43,7 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUIState,
+    isGridLayout: Boolean,
     onNavigateToDetail: (String) -> Unit,
     onNavigateToProfileScreen: () -> Unit,
     onNavigateToSourceCodeScreen: () -> Unit,
@@ -54,7 +51,6 @@ fun HomeScreen(
 ) {
     val listState = rememberLazyListState()
     val gridState = rememberLazyGridState()
-    var isGridLayout by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -75,7 +71,6 @@ fun HomeScreen(
             ) {
                 FloatingActionButton(
                     onClick = {
-                        isGridLayout = !isGridLayout
                         onChangeContentLayout()
                     },
                     containerColor = MainRed.copy(0.75f),
@@ -157,6 +152,7 @@ fun HomeScreenSuccessPreview() {
         val fighters = loadFighters(LocalContext.current)
         HomeScreen(
             uiState = HomeUIState.Success(fighters),
+            isGridLayout = false,
             onNavigateToDetail = {},
             onNavigateToProfileScreen = {},
             onNavigateToSourceCodeScreen = {},
@@ -184,6 +180,7 @@ fun HomeScreenLoadingPreview() {
     FighterRankComposeTheme {
         HomeScreen(
             uiState = HomeUIState.Loading,
+            isGridLayout = false,
             onNavigateToDetail = {},
             onNavigateToProfileScreen = {},
             onNavigateToSourceCodeScreen = {},
@@ -211,6 +208,7 @@ fun HomeScreenErrorPreview() {
     FighterRankComposeTheme {
         HomeScreen(
             uiState = HomeUIState.Error(stringResource(R.string.failed_to_load_fighters)),
+            isGridLayout = false,
             onNavigateToDetail = {},
             onNavigateToProfileScreen = {},
             onNavigateToSourceCodeScreen = {},

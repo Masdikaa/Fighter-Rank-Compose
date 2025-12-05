@@ -5,13 +5,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
 import com.masdika.fighterrankcompose.ui.screens.about.AboutViewModel
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
@@ -37,9 +42,12 @@ fun AppNavigation(
         composable<Screen.Home> {
             val viewModel = viewModel<HomeViewModel>()
             val uiState by viewModel.uiState.collectAsState()
+            var isGridLayout by rememberSaveable { mutableStateOf(false) }
+            val sourceCodeUrl = stringResource(R.string.source_code_url)
 
             HomeScreen(
                 uiState = uiState,
+                isGridLayout = isGridLayout,
                 onNavigateToDetail = { fighterName ->
                     navController.navigate(Screen.Detail(fighterName = fighterName))
                 },
@@ -47,10 +55,10 @@ fun AppNavigation(
                     navController.navigate(Screen.About)
                 },
                 onNavigateToSourceCodeScreen = {
-                    context.openUrl("https://github.com/Masdikaa/Fighter-Rank-Compose")
+                    context.openUrl(sourceCodeUrl)
                 },
                 onChangeContentLayout = {
-                    // TODO: Implement FAB click action
+                    isGridLayout = !isGridLayout
                 }
             )
         }
