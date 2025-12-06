@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -68,4 +69,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose) // COMPOSE VIEWMODEL
     implementation(libs.androidx.lifecycle.runtime.compose) // COMPOSE RUNTIME
     implementation(libs.backdrop) // BACKDROP
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler.ksp)
 }
