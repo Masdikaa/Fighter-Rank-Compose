@@ -20,7 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -30,7 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.masdika.fighterrankcompose.R
-import com.masdika.fighterrankcompose.data.source.loadFighters
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
@@ -203,11 +202,25 @@ fun FighterStatisticChart(
 @Preview(showBackground = true)
 @Composable
 private fun FighterStatisticChartPreview() {
-    val fighters = loadFighters(LocalContext.current)
-    val fighter = fighters.getOrNull(5)
+    val fighter = Fighter(
+        id = 1,
+        image = "",
+        name = "Islam Makhachev",
+        division = "Lightweight",
+        description = "A dominant lightweight champion from Dagestan, known for his suffocating grappling and sambo skills.",
+        wins = 326,
+        losses = 1,
+        draws = 0,
+        strikeAccuracy = 60.2,
+        takedownAccuracy = 61.1,
+        knockOutWins = 5,
+        submissionWins = 11,
+        title = "Lightweight Champion",
+        p4pRank = 1
+    )
     FighterRankComposeTheme {
         FighterStatisticChart(
-            fighterName = fighter!!.name,
+            fighterName = fighter.name,
             fighterStrikeAccuracy = fighter.strikeAccuracy,
             fighterTakedownAccuracy = fighter.takedownAccuracy,
         )

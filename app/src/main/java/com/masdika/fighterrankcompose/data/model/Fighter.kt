@@ -1,6 +1,12 @@
 package com.masdika.fighterrankcompose.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "fighters")
 data class Fighter(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val image: String,
     val name: String,
     val division: String,
@@ -13,4 +19,5 @@ data class Fighter(
     val knockOutWins: Int,
     val submissionWins: Int,
     val title: String,
+    val p4pRank: Int,
 )

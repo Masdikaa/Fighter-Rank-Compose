@@ -7,7 +7,7 @@ sealed interface Screen {
     data object Home : Screen
 
     @Serializable
-    data class Detail(val fighterName: String)
+    data class Detail(val fighterId: Int)
 
     @Serializable
     data object About : Screen

@@ -9,6 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -16,7 +17,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.masdika.fighterrankcompose.FighterRankApplication
 import com.masdika.fighterrankcompose.R
+import com.masdika.fighterrankcompose.ui.ViewModelFactory
 import com.masdika.fighterrankcompose.ui.screens.about.AboutScreen
 import com.masdika.fighterrankcompose.ui.screens.about.AboutViewModel
 import com.masdika.fighterrankcompose.ui.screens.detail.DetailScreen
@@ -33,6 +36,9 @@ fun AppNavigation(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    val application = LocalContext.current.applicationContext as FighterRankApplication
+    val viewModelFactory = ViewModelFactory(application.repository)
+
     NavHost(
         navController = navController,
         startDestination = Screen.Home,
@@ -40,7 +46,7 @@ fun AppNavigation(
     ) {
         // Home Route
         composable<Screen.Home> {
-            val viewModel = viewModel<HomeViewModel>()
+            val viewModel: HomeViewModel = viewModel(factory = viewModelFactory)
             val uiState by viewModel.uiState.collectAsState()
             var isGridLayout by rememberSaveable { mutableStateOf(false) }
             val sourceCodeUrl = stringResource(R.string.source_code_url)
@@ -48,8 +54,8 @@ fun AppNavigation(
             HomeScreen(
                 uiState = uiState,
                 isGridLayout = isGridLayout,
-                onNavigateToDetail = { fighterName ->
-                    navController.navigate(Screen.Detail(fighterName = fighterName))
+                onNavigateToDetail = { fighterId ->
+                    navController.navigate(Screen.Detail(fighterId = fighterId))
                 },
                 onNavigateToProfileScreen = {
                     navController.navigate(Screen.About)
@@ -66,11 +72,11 @@ fun AppNavigation(
         // Detail Route
         composable<Screen.Detail> { backStackEntry ->
             val args = backStackEntry.toRoute<Screen.Detail>()
-            val viewModel = viewModel<DetailViewModel>()
+            val viewModel: DetailViewModel = viewModel(factory = viewModelFactory)
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-            LaunchedEffect(key1 = args.fighterName) {
-                viewModel.findFighterByName(args.fighterName)
+            LaunchedEffect(key1 = args.fighterId) {
+                viewModel.findFighterById(args.fighterId)
             }
 
             DetailScreen(

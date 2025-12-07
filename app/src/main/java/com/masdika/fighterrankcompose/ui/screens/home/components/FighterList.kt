@@ -30,7 +30,7 @@ import com.masdika.fighterrankcompose.ui.theme.MainRed
 @Composable
 fun FighterList(
     fighters: List<Fighter>,
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (Int) -> Unit,
     modifier: Modifier = Modifier,
     isGridLayout: Boolean,
     fighterListState: LazyListState,
@@ -66,7 +66,7 @@ fun FighterList(
                             shape = RoundedCornerShape(5.dp)
                         )
                         .clickable(
-                            onClick = { onNavigateToDetail(fighter.name) }
+                            onClick = { onNavigateToDetail(fighter.id) }
                         )
                 )
             }
@@ -102,7 +102,7 @@ fun FighterList(
                             shape = RoundedCornerShape(5.dp)
                         )
                         .clickable(
-                            onClick = { onNavigateToDetail(fighter.name) }
+                            onClick = { onNavigateToDetail(fighter.id) }
                         )
                 )
             }

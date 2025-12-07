@@ -20,7 +20,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -31,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.masdika.fighterrankcompose.R
-import com.masdika.fighterrankcompose.data.source.loadFighters
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterDescription
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterOverview
 import com.masdika.fighterrankcompose.ui.screens.detail.components.FighterStatisticChart
@@ -148,11 +147,25 @@ fun DetailScreen(
 @Composable
 private fun DetailScreenSuccessPreview() {
     FighterRankComposeTheme {
-        val fighters = loadFighters(LocalContext.current)
-        val fighter = fighters.getOrNull(10)
+        val fighter = Fighter(
+            id = 1,
+            image = "",
+            name = "Islam Makhachev",
+            division = "Lightweight",
+            description = "A dominant lightweight champion from Dagestan, known for his suffocating grappling and sambo skills.",
+            wins = 326,
+            losses = 1,
+            draws = 0,
+            strikeAccuracy = 60.2,
+            takedownAccuracy = 61.1,
+            knockOutWins = 5,
+            submissionWins = 11,
+            title = "Lightweight Champion",
+            p4pRank = 1
+        )
         DetailScreen(
             onShareClick = {},
-            uiState = DetailUIState.Success(fighter!!),
+            uiState = DetailUIState.Success(fighter),
         )
     }
 }

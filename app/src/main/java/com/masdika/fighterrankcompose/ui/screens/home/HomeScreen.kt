@@ -5,6 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -30,7 +30,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.masdika.fighterrankcompose.R
-import com.masdika.fighterrankcompose.data.source.loadFighters
+import com.masdika.fighterrankcompose.data.model.Fighter
 import com.masdika.fighterrankcompose.ui.components.TopAppBar
 import com.masdika.fighterrankcompose.ui.components.icons.GridIcon
 import com.masdika.fighterrankcompose.ui.components.icons.ListIcon
@@ -44,7 +44,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUIState,
     isGridLayout: Boolean,
-    onNavigateToDetail: (String) -> Unit,
+    onNavigateToDetail: (Int) -> Unit,
     onNavigateToProfileScreen: () -> Unit,
     onNavigateToSourceCodeScreen: () -> Unit,
     onChangeContentLayout: () -> Unit
@@ -90,6 +90,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             when (uiState) {
                 is HomeUIState.Loading -> {
@@ -149,9 +150,42 @@ fun HomeScreen(
 @Composable
 fun HomeScreenSuccessPreview() {
     FighterRankComposeTheme {
-        val fighters = loadFighters(LocalContext.current)
+        val mockFighters = listOf(
+            Fighter(
+                id = 1,
+                image = "",
+                name = "Islam Makhachev",
+                division = "Lightweight",
+                description = "A dominant lightweight champion from Dagestan, known for his suffocating grappling and sambo skills.",
+                wins = 326,
+                losses = 1,
+                draws = 0,
+                strikeAccuracy = 60.2,
+                takedownAccuracy = 61.1,
+                knockOutWins = 5,
+                submissionWins = 11,
+                title = "Lightweight Champion",
+                p4pRank = 1
+            ),
+            Fighter(
+                id = 2,
+                image = "",
+                name = "Alex Pereira",
+                division = "Light Heavyweight",
+                description = "A terrifying striker with immense power, holding championships in two divisions.",
+                wins = 11,
+                losses = 3,
+                draws = 0,
+                strikeAccuracy = 62.5,
+                takedownAccuracy = 50.0,
+                knockOutWins = 9, submissionWins = 0,
+                title = "Poatan",
+                p4pRank = 2
+            )
+        )
+
         HomeScreen(
-            uiState = HomeUIState.Success(fighters),
+            uiState = HomeUIState.Success(mockFighters),
             isGridLayout = false,
             onNavigateToDetail = {},
             onNavigateToProfileScreen = {},
