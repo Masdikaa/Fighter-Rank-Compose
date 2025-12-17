@@ -11,6 +11,16 @@ The app provides users with a curated list of UFC fighters, offering detailed st
   <img src="assets/demo-app.gif" alt="Demo Aplikasi" width="300" />
 </p>
 
+<p align="center">
+  👇🏻
+</p>
+
+<p align="center">
+  <a href="https://github.com/Masdikaa/Fighter-Rank-Compose/releases/download/v1.0/Fighter-Rank-app-debug.apk">
+    <img src="https://img.shields.io/badge/Download_APK-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Download APK" />
+  </a>
+</p>
+
 ---
 
 ## 🚀 **Key Implementation**
@@ -32,3 +42,4 @@ The app provides users with a curated list of UFC fighters, offering detailed st
 * **AsyncImage:** [Coil Compose](https://github.com/coil-kt/coil)
 * **Chart:** [ComposeChart](https://github.com/ehsannarmani/ComposeCharts)
 * **Backdrop:** [AndroidLiquidGlass](https://github.com/Kyant0/AndroidLiquidGlass)
+
