@@ -3,7 +3,7 @@ package com.masdika.fighterrankcompose.ui.screens.about
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.masdika.fighterrankcompose.data.model.SocialMediaItem
-import com.masdika.fighterrankcompose.data.source.SocialMediaDataProvider
+import com.masdika.fighterrankcompose.data.source.loadSocialMediaItems
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +23,7 @@ class AboutViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getSocialMediaItems() {
-        val items = SocialMediaDataProvider.socialMediaItems
+        val items = loadSocialMediaItems(getApplication())
         _uiState.value = AboutUIState.Success(items)
     }
 }

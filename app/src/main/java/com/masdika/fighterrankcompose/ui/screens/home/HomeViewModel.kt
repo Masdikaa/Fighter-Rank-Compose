@@ -25,7 +25,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getFighters() {
         _uiState.update { HomeUIState.Loading }
-        val fighters = loadFighters(getApplication<Application>().applicationContext)
+        val fighters = loadFighters(getApplication())
         _uiState.update { HomeUIState.Success(fighters) }
     }
 }

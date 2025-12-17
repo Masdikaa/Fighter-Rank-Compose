@@ -1,19 +1,27 @@
 package com.masdika.fighterrankcompose.ui.screens.home.components
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
@@ -22,12 +30,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.masdika.fighterrankcompose.R
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.BebasNeue
+import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
+import com.masdika.fighterrankcompose.ui.theme.MainRed
 import com.masdika.fighterrankcompose.ui.theme.MavenPro
 
 @Composable
@@ -45,8 +57,8 @@ fun GridFighterCard(
             contentDescription = fighter.name + stringResource(R.string.fighter_image),
             contentScale = ContentScale.Fit,
             alignment = Alignment.BottomCenter,
-            placeholder = painterResource(R.drawable.ic_launcher_background),
-            error = painterResource(R.drawable.ic_launcher_background),
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            error = painterResource(R.drawable.ic_launcher_foreground),
             modifier = Modifier
                 .padding(start = 3.dp)
                 .fillMaxHeight(0.95f)
@@ -120,5 +132,38 @@ fun GridFighterCard(
                 ),
             )
         }
+    }
+}
+
+@Preview(
+    name = "GridFighterCard Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "GridFighterCard Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun GridFighterCardPreview() {
+    FighterRankComposeTheme {
+        val sampleFighter = loadFighters(LocalContext.current)[1]
+        GridFighterCard(
+            fighter = sampleFighter,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(130.dp)
+                .clip(RoundedCornerShape(5.dp))
+                .border(
+                    width = 1.dp,
+                    color = MainRed,
+                    shape = RoundedCornerShape(5.dp)
+                )
+                .clickable(
+                    onClick = { }
+                )
+                .background(MaterialTheme.colorScheme.background)
+        )
     }
 }

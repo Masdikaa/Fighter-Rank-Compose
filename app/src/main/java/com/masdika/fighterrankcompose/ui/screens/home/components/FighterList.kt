@@ -15,15 +15,19 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.masdika.fighterrankcompose.data.model.Fighter
+import com.masdika.fighterrankcompose.data.source.loadFighters
 import com.masdika.fighterrankcompose.ui.theme.FighterRankComposeTheme
 import com.masdika.fighterrankcompose.ui.theme.MainRed
 
@@ -111,14 +115,14 @@ fun FighterList(
 }
 
 @Preview(
-    name = "FighterList Light Mode",
+    name = "FighterList Grid Light Mode",
     showBackground = true,
     widthDp = 425,
     heightDp = 944,
     uiMode = Configuration.UI_MODE_NIGHT_NO
 )
 @Preview(
-    name = "FighterList Dark Mode",
+    name = "FighterList Grid Dark Mode",
     showBackground = true,
     backgroundColor = 0xFF121316C,
     widthDp = 425,
@@ -126,14 +130,50 @@ fun FighterList(
     uiMode = Configuration.UI_MODE_NIGHT_YES
 )
 @Composable
-private fun FighterListPreview() {
+private fun FighterListGridPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val listState = rememberLazyListState()
+    val gridState = rememberLazyGridState()
+
     FighterRankComposeTheme {
-//        val fighters = loadFighters(LocalContext.current)
-//        FighterList(
-//            fighters = fighters,
-//            onNavigateToDetail = {},
-//            isGridLayout = true,
-//            modifier = Modifier.fillMaxSize()
-//        )
+        FighterList(
+            fighters = fighters,
+            onNavigateToDetail = {},
+            isGridLayout = true,
+            fighterListState = listState,
+            fighterGridState = gridState
+        )
+    }
+}
+
+@Preview(
+    name = "FighterList List Light Mode",
+    showBackground = true,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "FighterList List Dark Mode",
+    showBackground = true,
+    backgroundColor = 0xFF121316C,
+    widthDp = 425,
+    heightDp = 944,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Composable
+private fun FighterListListPreview() {
+    val fighters = loadFighters(LocalContext.current)
+    val listState = rememberLazyListState()
+    val gridState = rememberLazyGridState()
+
+    FighterRankComposeTheme {
+        FighterList(
+            fighters = fighters,
+            onNavigateToDetail = {},
+            isGridLayout = false,
+            fighterListState = listState,
+            fighterGridState = gridState
+        )
     }
 }
